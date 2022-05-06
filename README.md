@@ -1,6 +1,6 @@
 ## **开源雨林**
 
-开源雨林是由华为技术有限公司发起，围绕开源通识、开源治理和开源使用实践等方向构建一个用于收集、分享开源知识分享社区的经验。
+开源雨林是由华为技术有限公司和开放原子开源基金会、中国软件行业协会、中国科学院软件研究所、中国信息通信研究院等组织共同发起，围绕开源通识、开源治理和开源使用实践等方向构建一个用于收集、分享开源知识分享社区的经验。
 
 ### **编译开源雨林**
 
@@ -20,7 +20,7 @@ cargo install --git https://github.com/rust-lang/mdBook.git mdbook
 
 #### **编译开源雨林**
 
-下载开源榆林到代码到本地，并解压编译
+下载开源雨林到代码到本地，并解压编译
 
 ```bash
 wget https://github.com/opensource-rainforest/osr/archive/refs/heads/main.zip
@@ -29,7 +29,7 @@ cd osr-refs-main
 mdbook build
 ```
 
-在浏览器中打开 http://localhost:3000 访问开源榆林的内容页面。
+在浏览器中打开 http://localhost:3000 访问开源雨林的内容页面。
 
 ### **品牌**
 

@@ -1,0 +1,9 @@
+[book]
+authors = ["Quanyi Ma"]
+language = "zh"
+multilingual = true
+src = "src"
+title = "开源雨林 —— 开源通识课程"
+
+[build]
+create-missing = false

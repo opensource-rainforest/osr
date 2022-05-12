@@ -4,7 +4,7 @@
 
 ### **编译开源雨林**
 
-开源雨林的内容实用 `mdbook` 进行编写，并通过 开源雨林 发布。
+开源雨林的内容使用 `mdbook` 进行编写，并通过 开源雨林 发布。
 
 #### **安装 mdbook**
 
@@ -20,7 +20,7 @@ cargo install --git https://github.com/rust-lang/mdBook.git mdbook
 
 #### **编译开源雨林**
 
-下载开源雨林到代码到本地，并解压编译
+下载开源雨林的代码到本地，并解压编译
 
 ```bash
 wget https://github.com/opensource-rainforest/osr/archive/refs/heads/main.zip

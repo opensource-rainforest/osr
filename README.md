@@ -27,6 +27,7 @@ wget https://github.com/opensource-rainforest/osr/archive/refs/heads/main.zip
 tar -xzf main.zip
 cd osr-refs-main
 mdbook build
+mdbook serve
 ```
 
 在浏览器中打开 http://localhost:3000 访问开源雨林的内容页面。

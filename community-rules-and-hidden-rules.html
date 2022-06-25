@@ -1,0 +1,597 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>社区规则和潜规则 - 开源雨林 —— 开源通识课程</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="preface.html"><strong aria-hidden="true">1.</strong> 前言</a></li><li class="chapter-item expanded "><a href="open-source-culture-and-awareness.html"><strong aria-hidden="true">2.</strong> 开源文化与认知</a></li><li class="chapter-item expanded "><a href="community-rules-and-hidden-rules.html" class="active"><strong aria-hidden="true">3.</strong> 社区规则和潜规则</a></li><li class="chapter-item expanded "><a href="open-source-usage-and-best-practices.html"><strong aria-hidden="true">4.</strong> 开源使用规范及业界优秀实践</a></li><li class="chapter-item expanded "><a href="open-source-ecosystem-build-and-best-practices.html"><strong aria-hidden="true">5.</strong> 开源生态构建及业界优秀实践</a></li><li class="chapter-item expanded "><a href="open-source-compliance-and-risk-managment.html"><strong aria-hidden="true">6.</strong> 开源合规及其风险管理</a></li><li class="chapter-item expanded "><a href="open-source-security-and-risk-managment.html"><strong aria-hidden="true">7.</strong> 开源安全及其风险管理</a></li><li class="chapter-item expanded "><a href="open-source-lifecycle-managment.html"><strong aria-hidden="true">8.</strong> 开源生命周期管理</a></li><li class="chapter-item expanded "><a href="open-source-strategy-and-tactics.html"><strong aria-hidden="true">9.</strong> 企业开源的战略和战术</a></li><li class="chapter-item expanded "><a href="enterprise-strategy-and-bussiness-model.html"><strong aria-hidden="true">10.</strong> 开源与商业模式</a></li><li class="chapter-item expanded "><a href="best-practices-for-enterprise-open-source-governance.html"><strong aria-hidden="true">11.</strong> 开源使用优秀实践分享</a></li><li class="chapter-item expanded "><a href="best-practices-for-open-source-ecosystems.html"><strong aria-hidden="true">12.</strong> 开源生态优秀实践分享</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">开源雨林 —— 开源通识课程</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="社区规则和潜规则"><a class="header" href="#社区规则和潜规则">社区规则和潜规则</a></h1>
+<h2 id="一为何要为开源贡献力量"><a class="header" href="#一为何要为开源贡献力量">一、为何要为开源贡献力量</a></h2>
+<blockquote>
+<p>在 [自由代码] 下工作，让我学习到了职业生涯中非常重要的技能，无论是大学还是实际的工作，我认为从开源项目中得到的收获的远大於我的贡献！
+—  <a href="https://github.com/errietta">@errietta</a> ,  <a href="https://www.errietta.me/blog/open-source/">“我为何是如此的热衷于为开源软件贡献力量”</a> </p>
+</blockquote>
+<hr />
+<p>为开源贡献力量，得到的回报就是能够学习到很多、受教很多、且能够锻炼任何你能够想到的经验。 为什么会有人为开源做贡献？这可能是很多人都不明白的地方，这里不妨列出一些！</p>
+<h3 id="1巩固现有技能"><a class="header" href="#1巩固现有技能">1、巩固现有技能</a></h3>
+<p>无论是撰写代码、设计用户界面、图形设计、撰写文档、亦或是组织活动，只要有实践的愿望，总能在开源项目中找到位置。</p>
+<p>例如，作为一个学生，在一个项目中实习，一般不会参与到核心代码的开发，因为实习生很难能够直接进入生产环境的开发，对于公司的业务不熟悉，代码的技能不够，对架构的理解也不够，因此研发管理者不会让学生立马进入（特别优秀者除外）。
+如果希望很快进入到生产环境中，则需要很多编码经验，尤其是与生产环境相关的开发经验，但在公司之外，很难有像开源这样更好的一个机会。因为现在开源出来的代码，在国内环境上，一些平台的代码是其生产上已经使用的一些项目、代码开放出来，通过此参与到这些代码中，无论是文档编写还是代码编写，都会从中学到很多，这能够让一个新手很快的接触到生产环境上的一些东西，能够理解业务上的问题。</p>
+<p>对已有开发技能者来说，这也是一种学习方式。例如做后端开发者，想学习前端的内容，不论是Vue，还是React，或是CSI 4等，通过参与开源软件、学习开源软件，能够快速了解前端代码如何去写。</p>
+<blockquote>
+<p>参与开源项目，不论是新手，还是已经掌握了一定开源技能但需要拓展更多技术领域者，或是学习更好的业务实践，这都是一种很好的方式。</p>
+</blockquote>
+<h3 id="2遇见那些和你臭味相投的人"><a class="header" href="#2遇见那些和你臭味相投的人">2、遇见那些和你“臭味相投”的人</a></h3>
+<p>开源项目一般都会有一个和谐、热心的社区，以让大家团结一致。实际上，开源界经常发生这样的情形，很多人的深厚友谊都是通过共同参与开源所建立起来的，至于具体的方式，可能是在一次技术研讨会上相谈甚欢，也可能是一直在聊天室中探讨问题。</p>
+<p>在社区里，能够相互交流是建立在对项目有共同兴趣的基础之上，且每个参与相同开源项目者的技术背景具有一定的相似性，因此在交流问题时能有共同语言。在社区里能够找到一些有趣的人，通过此来拓展人脉关系以及社交。</p>
+<h3 id="3寻找导师并且尝试帮助他人"><a class="header" href="#3寻找导师并且尝试帮助他人">3、寻找导师，并且尝试帮助他人</a></h3>
+<p>和他人共同在一个共享的项目下工作，这意味着需要向他人解释清楚自己是如何做的，同理，也需要向他人求助，询问别人是如何做的。相互学习和彼此教学对于每位参与者都能满载而归。</p>
+<p>现在很多开源项目，都有导师机制，有些导师可能提供的是方向性指导，有些则是实际指导，但无论如何，都是有一定帮助的。</p>
+<p>同时在帮助其他人时也能够更好地理解该项目，当有人提出问题，在深入思考他所遇到的环境及面临的事情后，再帮他解决问题，能学到更多的东西。因此不论是得到他人的帮助，还是帮助他人，都会有所收获，同时在社区能够建立一个更好的人际关系。</p>
+<h3 id="4在公众间建立你的声誉职业口碑"><a class="header" href="#4在公众间建立你的声誉职业口碑">4、在公众间建立你的声誉（职业口碑）</a></h3>
+<p>根据开源的定义，你在开源下所有的工作都是公开的，这也就意味着开源项目是一个很好展示你实力的地方。</p>
+<p>当参与到开源中，有更多的演讲机会时，会在公众间建立口碑。现国内很多工作者会以“参与了某些开源项目/是某个项目的maintainer”为标签，包括一些公司在招聘时，都会选择在例如Apache等项目里作为maintainer，因为当他在公司内部从事某项工作时，是无法得知他的工作情况（代码不开放），但在开源项目设计中，只要参与过，就会留下足迹，因此在开源设计里就能很清楚的知道这个人的技术能力、架构能力以及为人处事方式等，以此来匹配团队岗位需求。</p>
+<h3 id="5学习领导和管理的艺术"><a class="header" href="#5学习领导和管理的艺术">5、学习领导和管理的艺术</a></h3>
+<p>开源为实践领导力和管理技能提供了很好的机会，比如解决冲突、组织团队、工作的优先级排列。</p>
+<p>其中存在一定条件，因为开源项目是一个分布式且是异步的模式，不是像在办公室内，能够面对面进行交流、沟通问题。开源项目是由不同的公司、不同的人参与进来，因此需要协调每个人在技术上、方向上的问题，保证项目的发展，这一点会比办公司管理更为困难，当然也存在优势，开源项目中的人彼此之间没有太多的利益关系，因此不会经历一些办公室内存在的斗争与纠纷。总之，如果能在社区里领导一个大型项目，那么其管理能力就是非常不错的。</p>
+<h3 id="6鼓励作出改变哪怕改变是很微小的"><a class="header" href="#6鼓励作出改变哪怕改变是很微小的">6、鼓励作出改变，哪怕改变是很微小的</a></h3>
+<p>在开源的世界里，作出贡献的不一定非得是花了很长时间拥有大量经验的人。你是否遇到过浏览某些网站发现有拼写错误，希望有人能修改它？其实，在开源的项目中，你只需要做就可以了。没有那么多的顾忌，开源让人们在很舒服的状态做事，而这才是这个世界应有的体验。</p>
+<p>这一点也是开源的精髓。在开源事业里，不论做了很多事，还是做的很少，包括帮他人改过文档，甚至是只改过错别字，也包括在社交媒体场合中讲述一个开源项目，虽然可能没有在编码上作出贡献，但以上这些都是对他人的贡献。</p>
+<hr />
+<h2 id="二贡献的具体含义是什么"><a class="header" href="#二贡献的具体含义是什么">二、贡献的具体含义是什么</a></h2>
+<p>如果你是一名开源界的新手，可能会对贡献的流程心生畏惧。比如：该如何找到正确的项目？不懂编码又想参与怎么办？万一做错事情了怎么办？</p>
+<p>其实没有关系的啦！条条大路通罗马，开源项目有太多的路径可以参与！</p>
+<p>比如说可以做一些logo的设计，也可以参与文档的编写，也可以做测试类的工作，或者组织一些活动等等。例如国内开源社的理事林旅强是一个非常熟悉开源合规方面的专家，他参与组织了很多社区的活动，这也是对开源的一种贡献。正如上述，在邮件列表回复他人，或者给其他人发链接，指引他如何去做等，这每一件事情都是在帮助他人，开源社就是一个很典型的例子，开源社热衷于组织各种事件（其本身未持有代码，在技术层面也未曾领导过某一方向），也支持其他社区区组织一些活动，为社区提供了很多帮助，比如说偏向于设计，或者整理一个风格指南，存在统一的视觉设计（类似于设计类工作），然后做出来之后会被其他的项目比如高斯、罗根等使用。</p>
+<p>同样也存在喜欢写文档/新闻的人，这种有写作能力的人，会帮助开源项目的传播，这也是非常重要的一部份。很多项目很优秀，但是不为人所知（可能写这些项目的工程师，其文化烙印较重，不喜欢公开交流，并且没有好的文章或媒体渠道进行宣传），因此为这些项目做贡献更容易，根据自身的特点，然后决定去做相应的事情，比如组织活动等，或者编码等多件事情。</p>
+<p>因此做开源软件帮助其他人时多方面的，不一定是开源，也不一定是软件项目。例如国外会有一些课程，这些课程也是开源的一部份，虽然没有编码，但课程会传授如何学习操作系统；比如一些面试题，在网上有 Rust 解答 LeetCode 题目的内容，这些题目的解析也是开源的一部份。</p>
+<p>开源是文化精神，是一种理念，而非行动准则，不是一定要做某件事情才称之为参与开源/开源贡献，而是有这种精神、想法，知道自身工作内容是什么，这就是参与开源。</p>
+<p>以下是一些实用的技巧，帮助你快速的获得经验。</p>
+<h3 id="1你不具备编码的能力"><a class="header" href="#1你不具备编码的能力">1、你不具备编码的能力</a></h3>
+<p>对于为开源做贡献常见的误解就是：为开源做贡献必须得提交代码。事实上，代码固然重要，但是项目中不需编码的重要部分 <a href="https://github.com/blog/2195-the-shape-of-open-source">经常被忽视</a> 。你若做了这部分，对于项目来说可是莫大的贡献，而这根本就不需要什么撰写代码！</p>
+<blockquote>
+<p>我被大家所熟知是因为为 CocoaPods 做了一些事, 其实大伙并不知道我实际并没有为 CocoaPods本身做了什么，我大多数的工作是诸如撰写文档、品牌宣传之类的。 —  <a href="https://github.com/orta">@orta</a> ,  <a href="https://realm.io/news/orta-therox-moving-to-oss-by-default/">“默认迁移到开源软件”</a> </p>
+</blockquote>
+<blockquote>
+<p>即使你是以为开发者，非代码的贡献对于项目来说也是举足轻重的，尤其是对于社区的其他成员来说。用心维系这些关系能够让你有工作到项目其它部分的机会。我第一次接触Python开发团队（简称 python-dev)是在 2002年6月17日，当时我是向其邮件列表发送了一份邮件，是关于请求通过我的补丁的。我很快就又发现了开源的bug，于是决定开始为小组收集邮件摘要，然后他们给了我一个澄清问题的理由，但是更加重要的是，我能够捕获到某人指出需要修复的问题。 —  <a href="https://github.com/brettcannon">@brettcannon</a> ,  <a href="https://github.com/open-source/stories/brettcannon">“维护者的故事”</a> </p>
+</blockquote>
+<h3 id="2是否热衷于规划事件"><a class="header" href="#2是否热衷于规划事件">2、是否热衷于规划事件？</a></h3>
+<ul>
+<li>为项目组织研讨会或线下分享， <a href="https://github.com/nodeschool/organizers/issues/406">一如 @fzamperin 为 NodeSchool 所做的那样</a> </li>
+<li>为项目组织大型会议（假如它有的话）</li>
+<li>帮助社区成员寻找合适的技术会议，且帮助有实力的成员提交演讲的拟稿</li>
+</ul>
+<h3 id="3是否偏向于设计"><a class="header" href="#3是否偏向于设计">3、是否偏向于设计？</a></h3>
+<ul>
+<li>重新布置布局以提高项目的可用性</li>
+<li>进行用户研究以重新组织和完善项目的导航或菜单</li>
+<li>整理一个风格指南，以帮助项目有一致的视觉设计</li>
+<li>创建t恤的艺术或一个新的标志， <a href="https://github.com/hapijs/contrib/issues/68">就像 hapi.js 的贡献者那样</a> </li>
+</ul>
+<h3 id="4你是否热衷于写作"><a class="header" href="#4你是否热衷于写作">4、你是否热衷于写作？</a></h3>
+<ul>
+<li>撰写和改进项目的文档</li>
+<li>能够以实例来展示项目该如何使用的</li>
+<li>为项目撰写新闻稿，或者到邮件列表高调布道</li>
+<li>为项目撰写教程，  <a href="https://github.com/pypa/python-packaging-user-guide/issues/194">一如 pypa 的贡献者所做的</a> </li>
+<li>翻译项目的文档为本土语言</li>
+</ul>
+<blockquote>
+<p>说真心话， [文档] 是非常重要的. 目前Babel的文档已经很棒了，这也是其杀手锏的特性之一。当然，还有一些章节需要大家的完善，即使是随便在哪儿增加一个段落都很感激。
+—  <a href="https://github.com/kittens">@kittens</a> ,  <a href="https://github.com/babel/babel/issues/1347">“贡献者召集令”</a> </p>
+</blockquote>
+<h3 id="5你喜欢组织活动吗"><a class="header" href="#5你喜欢组织活动吗">5、你喜欢组织活动吗？</a></h3>
+<ul>
+<li>链接重复的问题，并建议新的问题标签，使事物井井有条</li>
+<li>通过开放的问题，并建议关闭旧的， <a href="https://github.com/eslint/eslint/issues/6765">就像 @nzakas 为 eslint 做的</a> </li>
+<li>把最近开放的问题阐述清晰，以推动讨论</li>
+</ul>
+<h3 id="6享受编码的乐趣"><a class="header" href="#6享受编码的乐趣">6、享受编码的乐趣？</a></h3>
+<ul>
+<li>找到一个开放的问题并解决它， <a href="https://github.com/Leaflet/Leaflet/issues/4528#issuecomment-216520560">就像 @dianjin 为 Leaflet 做的</a> </li>
+<li>想一想你是否可以帮忙写一个新的功能</li>
+<li>自动化项目设置</li>
+<li>改进工具和测试</li>
+</ul>
+<h3 id="7热衷于帮助他人"><a class="header" href="#7热衷于帮助他人">7、热衷于帮助他人？</a></h3>
+<ul>
+<li>回答关于项目的问题，例如在 Stack Overflow（ <a href="http://stackoverflow.com/questions/18664074/getting-error-peer-authentication-failed-for-user-postgres-when-to-ge">像 Postgres 的这个示例</a> ）或者 reddit 上</li>
+<li>为人们解答公开的问题</li>
+<li>帮助缓和讨论板或对话渠道</li>
+</ul>
+<h3 id="8在编码方面是否喜欢帮助他人"><a class="header" href="#8在编码方面是否喜欢帮助他人">8、在编码方面是否喜欢帮助他人？</a></h3>
+<ul>
+<li>为他人的提交审核代码</li>
+<li>为如何利用项目撰写教程</li>
+<li>为其他贡献者做导师，  <a href="https://github.com/rust-lang/book/issues/123#issuecomment-238049666">正如 @ereichert 为 @bronzdoc 所做的那样，哦，是 Rust 项目</a> </li>
+</ul>
+<h3 id="9其实不必一定是软件项目"><a class="header" href="#9其实不必一定是软件项目">9、其实不必一定是软件项目！</a></h3>
+<p>尽管人们一提起“开源”二字，默认就是指开源软件，其实不尽然，开源可以是任何事情的修饰，而不仅仅是指软件而言的。比如图书、食谱、列表、以及任何可以开源的项目类。</p>
+<p>举例来说：</p>
+<ul>
+<li><a href="https://github.com/sindresorhus">@sindresorhus</a>  创建了  <a href="https://github.com/sindresorhus/awesome">“惊奇” 列表</a></li>
+<li><a href="https://github.com/h5bp">@h5bp</a>  维护了针对前端开发者的 <a href="https://github.com/h5bp/Front-end-Developer-Interview-Questions">面试题</a></li>
+<li><a href="https://github.com/stuartlynn">@stuartlynn</a>  和  <a href="https://github.com/nicole-a-tesla">@nicole-a-tesla</a>  制作了 [收集关于海雀的有趣的事实(https://github.com/stuartlynn/puffin_facts)</li>
+</ul>
+<blockquote>
+<p>尽管你是一名软件开发者，也可以去撰写一些文档去帮助新的入门者。其实项目中那些看起来令人生畏的项目并不是写代码，做开发者总得挑战自己，其实在做得过程中可以增强信心和获得全新的体验。</p>
+</blockquote>
+<hr />
+<h2 id="三根据项目定位自我"><a class="header" href="#三根据项目定位自我">三、根据项目定位自我</a></h2>
+<blockquote>
+<p>如果你跟着了一条issue，还发现了令人感到困惑的事情，这很正常，不是你一个人这样。这些工具需要大量的隐式的知识，但是总会有人带着你熟悉这些，当然你要找他们问对的问题。
+—  <a href="https://github.com/shaunagm">@shaunagm</a> ,  <a href="http://readwrite.com/2014/10/10/open-source-diversity-how-to-contribute/">“如何为开源做贡献”</a> </p>
+</blockquote>
+<p>为开源做贡献，除了单词拼写错误之外，大多数时候就像是走在陌生人中间，浑身上下不适。这就像人们已经在西边讨论的非常深入了，你突然开始讲东，肯定会让人感到不舒服。</p>
+<p>与其盲目的在项目中游荡，不如静下心来学习规则。这样反而会让你的想法被注意到，也会有人听到你的声音。</p>
+<h3 id="1分析感兴趣的开源项目"><a class="header" href="#1分析感兴趣的开源项目">1、分析感兴趣的开源项目</a></h3>
+<p>每一个开源社区都是不一样的。</p>
+<p>在某一个开源项目扎根多年，这意味着你只是对这一个开源项目无比的熟悉。若是切换到不同的项目，可能会发现完全是另外一回事，所谓的使用词汇、习惯用语、沟通方式都发生了变化。</p>
+<p>然而，很多的开源项目还是遵循类似的组织结构的。理解不同的社区角色和全部的流程，可以很好的帮助你快速的切入新的项目。</p>
+<p>一个典型的开源项目均会有如下类型的人：</p>
+<ul>
+<li><strong>作者</strong>：项目的创始人或创始组织</li>
+<li><strong>归属者</strong>：代码仓库或组织的管理员（不一定和作者是同一个人）</li>
+<li><strong>维护者</strong>：贡献者，负责项目的未来走向和组织的管理（他们通常也是项目的作者或归属者。）</li>
+<li><strong>贡献者</strong>：只要是为项目做出了贡献，就算。</li>
+<li><strong>社区成员</strong>：那些实用项目的人们。他们或许是积极的讨论者，又或者是为项目的方向提出意见的人。</li>
+</ul>
+<p>一个较大的项目，可能下面还会细分子社区，或者是针对不同的任务分成不同的小组，比如工具小组、分流、社区事务、以及活动组织等。径直到项目到web站点，找到“团队”页面，或者是查看治理文档，从而获得类似到信息。</p>
+<p>靠谱的开源项目，一般都会有一个文档的，这些文档文件通常会在代码仓库的顶级目录列出。</p>
+<ul>
+<li><strong>许可协议</strong>:根据开源软件的定义，每一个开源项目必须是有 <a href="https://choosealicense.com/">开源许可协议</a> 的。可以这么认为：假如说某个项目源码开放，但是没有任何的许可协议，那么它就不能叫做开源。</li>
+<li><strong>README</strong>:README 是一个介绍性的说明文件，对初次光临社区对人们表示欢迎，它通常会解释项目有何用处，为何发起，以及如何快速入门等。</li>
+<li><strong>贡献</strong>:READMES 帮助人们来认识项目，贡献这个文件则是帮助对项目如何做贡献。它解释了目前项目需要什么样类型对贡献者，社区对流程是啥样的。并非所有的项目都会有这个文件，它某种程度上也是展示项目对于贡献者的友好程度。</li>
+<li><strong>行为准则</strong>:顾名思义，即是一些参与社区时的一些礼仪、说话方式、行为等，帮助形成一种友好的氛围，不是所有的项目都会撰写行为准则文件，它某种程度上也是展示项目对于贡献者的友好程度。</li>
+<li><strong>其它文档</strong>:有些项目也许还有其它文档，例如教程、导游，或者是治理规则，这在大型项目中常见。</li>
+</ul>
+<p>此外，开源项目还会利用如下一些工具来进行组织讨论，阅读这些归档对于理解社区的想法、是如何工作的有非常大的作用。</p>
+<ul>
+<li><strong>问题追踪</strong>:这里是人们讨论项目相关问题的地方。</li>
+<li><strong>Pull Requests</strong>:审核代码、以及相关的问题讨论。</li>
+<li><strong>论坛或邮件列表</strong>：一些项目会实用会话式的主题（例如 <em>“How do I…“</em> 或 <em>“What do you think about…“</em> 来替代Bug报告或特性请求）。然而有一些项目关于讨论全部实用问题追踪。</li>
+<li><strong>即时在线聊天</strong>:有一些项目会实用聊天频道（诸如 Slack 或 IRC），从而能够随意的谈话、协作和快速交流。</li>
+</ul>
+<p>国内开源其实都不太习惯用issue包括PR的方式去提交代码（包括在论坛外做一些讨论），国内更喜欢使用一些即时聊天工具，尤其是封闭平台，例如微信，这些对开源来说并不是一个特别好的方式。</p>
+<hr />
+<h2 id="四寻找打算做贡献的项目"><a class="header" href="#四寻找打算做贡献的项目">四、寻找打算做贡献的项目</a></h2>
+<p>假如你之前从来都没有为开源做过贡献的话，那么请记住来自美国总统约翰 F.肯尼迪的这段话：<strong>不要问你的国家能为你做什么，要问你能为国家做什么。</strong></p>
+<p>开源项目的方方面面都需要贡献者，你先不要通盘考虑该往哪里贡献，或者是它将如何看。相反，从你已经使用到的或者打算用到项目开启贡献之路，在你积极的贡献过程中，项目也会反馈给你，让你更好的定位自己。</p>
+<p>一旦进入某项目，不论何时，你都要听从自己的直觉，做你认为更好或者不同的事情。</p>
+<p>开源并不是高级俱乐部；它就是由你这样的人所浇铸和打造。<strong>“开源”只是针对这个世界的需要修复的问题的一个梦幻术语罢了。</strong></p>
+<p>你或许在查看 README的时候，发现了损坏的链接，又或者拼写错误。又或者是你是一名新手，使用的过程中发现了问题，又或者是某问题应该在文档中注明。请不要坐视不理，径直绕开，或者是请求他人修复，伸出你的援助之手，解决这些你能看到的问题。而这正是开源的精髓之所在！</p>
+<blockquote>
+<p><a href="http://www.igor.pro.br/publica/papers/saner2016.pdf">28% 的随意贡献</a> 就是说明了贡献文档，诸如拼写错误，段落语句调整、或者是翻译。</p>
+</blockquote>
+<p>你也可以利用如下列出的资源来找到合适的新项目：</p>
+<ul>
+<li><a href="https://github.com/explore/">GitHub 探索</a></li>
+<li><a href="http://www.firsttimersonly.com/">First Timers Only</a></li>
+<li><a href="https://yourfirstpr.github.io/">你的第一个 PR</a></li>
+<li><a href="https://www.codetriage.com/">CodeTriage</a></li>
+<li><a href="https://24pullrequests.com/">24 Pull Requests</a></li>
+<li><a href="http://up-for-grabs.net/">Up For Grabs</a></li>
+<li><a href="https://contributor.ninja/">像忍者一样贡献</a></li>
+</ul>
+<h3 id="1提交贡献之前应做的检查列表"><a class="header" href="#1提交贡献之前应做的检查列表">1、提交贡献之前应做的检查列表</a></h3>
+<p>当你找到了你打算贡献的项目时，在进一步行动之前，作一个快速的扫描工作，以确保项目是否接受贡献的。否则，你煞费苦心的工作可能没有任何的回报。
+这是一个简易的检查表，用来评估一个项目是否适合新的贡献者。</p>
+<p><strong>符合开源的定义</strong></p>
+<ul>
+<li><input disabled="" type="checkbox"/>
+有许可协议吗？通常情况下，会在根目录有一个叫做 LICENSE 的文件。</li>
+</ul>
+<p><strong>项目被接收的提交活跃度</strong></p>
+<p>在主干上确认提交的活跃度。在GitHub上托管的开源项目，你可以在仓库主页上看到这些信息。</p>
+<ul>
+<li><input disabled="" type="checkbox"/>
+最后一次提交是在什么时候？</li>
+<li><input disabled="" type="checkbox"/>
+项目目前有多少贡献者？</li>
+<li><input disabled="" type="checkbox"/>
+人们提交的频繁吗？ (在 GitHub，可以在顶栏里点击“commits”来展现。）</li>
+</ul>
+<p>接下来，就是看项目的 issue 数量。</p>
+<ul>
+<li><input disabled="" type="checkbox"/>
+目前有多少个还处于开放状态的 issue？	</li>
+<li><input disabled="" type="checkbox"/>
+项目的维护者对于处于开放状态的issue响应是否迅速？</li>
+<li><input disabled="" type="checkbox"/>
+是否有讨论很活跃的issue？</li>
+<li><input disabled="" type="checkbox"/>
+issue 均是近期产生的吗？</li>
+<li><input disabled="" type="checkbox"/>
+有没有关闭的issue？ (在 GitHub, 点击 &quot;closed&quot; 标签就可以看到所有已经关闭的 Issue 。</li>
+</ul>
+<p>同样再来看看 PR的情形。</p>
+<ul>
+<li><input disabled="" type="checkbox"/>
+现下有多少处于开放状态的PR？</li>
+<li><input disabled="" type="checkbox"/>
+当提交了PR后，维护者响应是否迅速？</li>
+<li><input disabled="" type="checkbox"/>
+是否有活跃讨论的 PR？</li>
+<li><input disabled="" type="checkbox"/>
+均是近期的RP吗？</li>
+<li><input disabled="" type="checkbox"/>
+最近有多少PR合并？ (在 GitHub, 点击 RP页面的 &quot;closed&quot; 的标签页来查看已经关闭的标签页。)</li>
+</ul>
+<p><strong>项目的受欢迎程度</strong></p>
+<p>一个项目的友好程度和受欢迎意味着更能吸引新的贡献者。</p>
+<ul>
+<li><input disabled="" type="checkbox"/>
+在issue的问题中，维护者的回答是否非常有帮助？</li>
+<li><input disabled="" type="checkbox"/>
+人们在issue的讨论中、在线聊天室、论坛是否很友好？</li>
+<li><input disabled="" type="checkbox"/>
+PR是否被review？</li>
+<li><input disabled="" type="checkbox"/>
+维护者是否对做贡献的人们道声”谢谢”？</li>
+</ul>
+<blockquote>
+<p>当你看到一个很长当对话时，来自核心开发者的零星的响应排在列表的后面。你就得考虑，他们在作建设性的总结？是否保持风度的情况下做出最后的决定？如果你看到的是更多的口水仗，而且还在继续，这通常意味着社区的能量重心已经不在开发上了。
+—  <a href="https://github.com/kfogel">@kfogel</a> ,  <a href="http://producingoss.com/en/evaluating-oss-projects.html">开源软件生产力</a> </p>
+</blockquote>
+<hr />
+<h2 id="五如何提交成果"><a class="header" href="#五如何提交成果">五、如何提交成果</a></h2>
+<p>你已经找到了你喜爱的项目，也已准备好贡献了，迫不及待、跃跃欲试了。好吧！以下就是带领你如何以正确的姿势作贡献。</p>
+<p>提交成果，就是提交PR，第一步是说清楚上下文，表明这个PR是做些什么事，一个好的PR相当于一篇小的作文/论文，需要解释清楚在什么场景下做什么事情。第二步是要达到什么目标，能解决什么问题，以及解决之后对其进行什么测试，最终得到什么结果。</p>
+<p>PR的内容应该简单直接，而非充满不确定性的“比较好”/“我更优”（PR里并不能证明该解决方案最优），因此如何去写PR是国内工程师普遍的一个问题（国内大多数以代码为导向而非文档为导向）。</p>
+<p>重要的是，尊重社区的决定，相关的社区_开源项目都具有自身的目标，做什么事情以及解决什么问题，大家的想法不一样（因为不在同一家公司，也不解决同一问题，具有差异性），需要大家一起讨论这个差异性，当然可以说服其他人，希望他们接受，如果不能接受，也没必要沮丧，这并不是技术问题或者其他核心问题。因此经常会遇到一个比较矛盾的问题，我希望使用一个项目，因为该项目做了70%的功能，但还有10%的功能我没有，那我则希望这10%的功能贡献到社区，但社区并不接受，因为这并不是社区_项目要解决的问题。</p>
+<p>所以就面临一个问题：是 Fork 重新做，还是保持分支 Patch 然后每次进行合入。这就是技术和运营双包括架构选择的综合性结果，并不代表 Fork 就是不尊重社区/分裂社区，但在欧美有些极端的人会产生这种想法：在做一个事情，Fork 它就是在分裂社区。因此需要以一个开放的心态去做这件事。</p>
+<h3 id="1有效沟通"><a class="header" href="#1有效沟通">1、有效沟通</a></h3>
+<p>无论你处于什么样的目的：仅仅是一次性的贡献，亦或是永久性的加入社区，都的和他人进行沟通和交往，这是你要在开源圈发展必须修炼的技能。</p>
+<blockquote>
+<p>[作为一名新手,] 我很快的就意识到，我若是要关闭一条 Issue 时，我不得不问更多的问题。我浏览了代码库，一旦我觉得有什么问题的时候，我就得需要更多的指点，瞧！ 在我得到所有的所需要的信息后，我就可以解决这个问题！
+—  <a href="https://github.com/shubheksha">@shubheksha</a> ,  <a href="https://medium.freecodecamp.com/a-beginners-very-bumpy-journey-through-the-world-of-open-source-4d108d540b39#.pcswr2e78">一名菜鸟进入开源世界的坎坷之旅</a></p>
+</blockquote>
+<p>在你开启一个 Issue 或 PR之 前，或者是在聊天室问问题之前，请牢记下面所列出的几点建议，会让你的工作更加的高效。
+<strong>给出上下文</strong> 以便于让其他人能够快速的理解。比方说你运行程序时遇到一个错误，要解释你是如何做的，并描述如何才能再现错误现象。又比方说你是提交一个新的想法，要解释你为什么这么想，对于项目有用处吗（不仅仅是只有你！）</p>
+<blockquote>
+<p>😇 <em>“当我做 Y 的时候 X 不能工作”</em><br />
+😢 <em>“X 出问题! 请修复它。”</em><br />
+<strong>在进一步行动前，做好准备工作。</strong> 不知道没关系，但是要展现你尝试过、努力过。在寻求帮助之前，请确认阅读了项目的 README、文档、问题（开放的和关闭的）、邮件列表，并搜索了网络。当你表现出很强烈的求知欲的时候，人们是非常欣赏这点的，会很乐意的帮助你。</p>
+<p>😇 <em>“我不确定 X 是如何实现的，我查阅了相关的帮助文档，然而毫无所获。”</em><br />
+😢 <em>“我该怎么做 X ?”</em><br />
+<strong>保持请求内容短小而直接。</strong> 正如发送一份邮件，每一次的贡献，无论是多么的简单，都是需要他人去查阅的。很多项目都是请求的人多，提供帮助的人少。相信我，保持简洁，你能得到他人帮助的机会会大大的增加。</p>
+<p>😇 <em>“我很乐意写 API 的教程。”</em><br />
+😢 <em>” 有一天我驾驶汽车行驶在高速公路上，在某个加油站加油的时候，突发奇想，我们应该这么做，不过在我进一步解释之前，我先和大家展示一下。。。”</em><br />
+<strong>让所有的沟通都是在公开场合下进行。</strong> 哪怕是很不起眼的小事，也不要去给维护者发私信，除非是你要分享一些敏感信息（诸如安全问题或严重的过失）。你若能够保持谈话是公开的，很多人可以你们交换的意见中学习和受益。</p>
+<p>😇 <em>(评论) “@维护者 你好！我们该如何处理这个PR？”</em><br />
+😢 <em>(邮件) “你好，非常抱歉给发信，但是我实在很希望你能看一下我提交的PR。”</em><br />
+<strong>大胆的提问（但是要谨慎！）。</strong> 每个人参与社区，开始的时候都是新手，哪怕是非常有经验的贡献者也一样，在刚进入一个新的项目的时候，也是新手。出于同样的原因,甚至长期维护人员并不总是熟悉一个项目的每一部分。给他们同样的耐心,你也会得到同样的回报。</p>
+<p>😇 <em>“感谢查看了这个错误，我按照您的建议做了，这是输出结果。”</em><br />
+😢 <em>“你为什么不修复我的问题？这难道不是你的项目吗？”</em><br />
+<strong>尊重社区的决定。</strong> 你的想法可能会和社区的优先级、愿景等有差异，他们可能对于你的想法提供了反馈和最后的决定的理由，这时你应该去积极的讨论，并寻求妥协的办法，维护者必须慎重的考虑你的想法。但是如果你实在是不能同意社区的做法，你可以坚持自己！保持自己的分支，或者另起炉灶。</p>
+<p>😇 <em>“你不能支持我的用例，我蛮失望，但是你的解释仅仅是对一小部分用户起作用，我理解是为什么。感谢你的耐心倾听。”</em><br />
+😢 <em>“你为什么不支持我的用例？这是不可接受的！”</em><br />
+<strong>以上几点，要铭记在心。</strong> 开源是由来自世界各地的人们共同协作实现的。面临的问题是跨语言、跨文化、不同的地理为止、不同的时区，另外，撰写文字的沟通更是难上加难，无法传达语气和情绪。请让这些会话都充满善意吧！在以下情形中请保持礼貌：推动一个想法、请求更多的上下文、进一步澄清你的立场。既然你在互联网找到了自己的所需，那么请尝试让它变得更好！</p>
+</blockquote>
+<h3 id="2收集上下文"><a class="header" href="#2收集上下文">2、收集上下文</a></h3>
+<p>在正式开始之前，做一些快速的检查项，以确保你的想法是没有被讨论过的。遍历项目的 README、问题（开放的和关闭的都算）、邮件列表、Stack Overflow。毋需去花好几个小时去全部折腾一遍，但是使用几个关键的词汇来搜索一下是必要的。</p>
+<p>如果你没有找到和你想法一样的内容，你就可以继续了。如果项目是在 GitHub上的话，你可以通过开启一个issue或PR：</p>
+<ul>
+<li><strong>Issues</strong> 开启一次对话或讨论</li>
+<li><strong>Pull requests</strong> 请求接受自己的解决方法</li>
+<li><strong>少量的沟通，</strong> 诸如澄清或how-to的问题，尝试到 Stack Overflow 、IRC、Slack或其它聊天频道。</li>
+</ul>
+<p>在你创建 Issue 和 PR 之前，请检查项目的贡献者文档（文件名通常叫做 CONTRIBUTING，或者就直接包含在 README 中），找一些你需要的较具体的东西，例如，他们会要求你遵循某个模版，或者是要求你使用某个测试。</p>
+<p>如果你做的是一个非常实际的贡献，在正式开启之前，先创建一个issue。监视项目是很有帮助的（在GitHub， <a href="https://help.github.com/articles/watching-repositories/">点击 “Watch”</a> ，所有的对话都会通知到你），要让社区的成员们知道你要做的工作，免得你做了之后，再让他们知道，他们不同意，就浪费了。</p>
+<blockquote>
+<p>你能够从单个的项目学习到 <em>很多</em> ，只要你踊跃的去使用，在GitHub上密切观察项目，并阅读每一个 issue 和 PR。
+—  <a href="https://github.com/gaearon">@gaearon</a>   <a href="https://twitter.com/dan_abramov/status/819555257055322112">参与项目</a> </p>
+</blockquote>
+<hr />
+<h3 id="3创建-issue"><a class="header" href="#3创建-issue">3、创建 issue</a></h3>
+<p>你应该在遇到下列情况下，去创建一个 issue：</p>
+<ul>
+<li>报告你自己无法解决的错误</li>
+<li>讨论一个高级主题或想法(例如. 社区、远景、政策等)</li>
+<li>期望实现某新的特性，或者其它项目的想法</li>
+</ul>
+<p>在issue的沟通中几点实用的技巧:</p>
+<ul>
+<li>如果你刚好看到一个开放的issue，恰是你打算解决的，添加评论，告诉他人你将负责这个。这样的话，可以避免他人重复劳动</li>
+<li>如果说某个issue已经开放很久了，这可能是已经有人正在解决中，又或者是早已经解决过了，所以也请添加评论，在打算开启工作之前，最好是确认一下。</li>
+<li>如果你创建了一issue，但是没多久自己解决了，也要添加评论，让其他人知道，然后关闭该issue。记录本身就是为社区的贡献。</li>
+</ul>
+<h3 id="4创建-pull-request"><a class="header" href="#4创建-pull-request">4、创建 pull request</a></h3>
+<p>在下面的情形时，请你务必使用PR：</p>
+<ul>
+<li>提交补丁 (例如，纠正拼写错误、损坏的链接、或者是其它较明显的错误）</li>
+<li>开始一项别人请求的任务，或者是过去在issue中早就讨论过的</li>
+</ul>
+<p>一个 PR 并不代表着工作已经完成。它通常是尽早的开启一个PR，是为了其他人可以观看或者给作者反馈意见。只需要在子标题标记为“WIP”（正在进行中）。作者可以在后面添加很多评论。</p>
+<p>如果说项目是托管在 GitHub上的，以下是我们总结出的提交RP的建议：</p>
+<ul>
+<li><a href="https://guides.github.com/activities/forking/">Fork 代码仓库</a>  并克隆到本地，在本地的仓库配置“上游”为远端仓库。这样你可以在提交你的PR时保持和“上游”同步，会减少很多解决冲突的时间。(更多关于同步的说明，请参考 <a href="https://help.github.com/articles/syncing-a-fork/">这里</a> .)</li>
+<li><a href="https://guides.github.com/introduction/flow/">创建一个分支</a>  用于自己编辑。</li>
+<li>参考任何相关的issue或者在你的RP中支持文档(比如. “Closes #37.”)</li>
+<li>包含之前和之后的快照 如果你的改动是包含了不同的 HTML/CSS。在你的PR中拖拉相应的图片。</li>
+<li>测试你的改动！ 若测试用例存在的话，跑一遍，以覆盖你的更改，若没有的话，则创建相应的用例。无论测试是否存在，一定要确保你的改动不会破坏掉现有的项目。</li>
+<li>和项目现有的风格保持一致 尽你最大的努力，这也就是意味着在使用缩进、分号、以及注释很可能和你自己的风格大相径庭，但是为了节省维护者的精力，以及未来他人更好的理解和维护，还请你容忍一下。</li>
+</ul>
+<p>如果这是你第一次提交PR。可以浏览 <a href="http://makeapullrequest.com/">PR制造</a> 的文档，这是  <a href="https://github.com/kentcdodds">@kentcdodds</a>  专门为初次创建PR的人写的公开的资料。</p>
+<hr />
+<h2 id="六在提交完之后需要善后事宜"><a class="header" href="#六在提交完之后需要善后事宜">六、在提交完之后需要善后事宜</a></h2>
+<p>很不错，你做到了！恭贺你成为开源贡献者。我们希望这是一个良好的开端。
+在你提交了贡献之后，下面几种情形中的某种是可能发生的：</p>
+<hr />
+<h3 id="1-没有人响应你"><a class="header" href="#1-没有人响应你">1、😭 没有人响应你。</a></h3>
+<p>希望你确认在开始工作之前检查过了项目的活跃度，不过即使检查过了，也不保证一个活跃的项目，没有人理会你的贡献也是很正常的。
+如果过去了一周，依旧没有人响应，请心平气和的在后面跟帖，询求他人帮助你审核下。如果你熟悉某个人可以审核你的贡献，你可以使用@+名字，直接提醒他一下。</p>
+<p><strong>千万不要</strong> 私下里去联系他人；一定要记住，开源项目所有的沟通都应该是公开的。</p>
+<p>如果你做了所有该做的事情，还是没有人理你，那就是真的没有人对你的贡献做出响应。这可能感觉上不太好受，但是千万不要灰心。每个人都会遇到这样的情况。其实有太多种原因没有人响应你的提交了，包括很多个人情形都是不在你控制范围的。再接再厉，换一种方法去提交，或者换一个项目。这年头，很多社区成员都在积极的参与和响应他人，都在抢夺优秀的人才，若没有人搭理你，你换地方是没有任何不对的地方的。</p>
+<p>这一点在国外比较明显，包括国内很多项目的一些大型技术会议都是做开源项目的人聚集在一起，开一个类似于workshop的会，有些PR_issue写的不好，无法从中了解到相应的项目是想做些什么，因此在这类会议上，大家会有一个面对面交流的机会，在这个讨论之下，就能得到对该项目的理解，然后再决定此PR是否合入_这个方向是否继续往下做。私下联系这个事情并非100%禁止，联系他人应尽量是公开的。</p>
+<h3 id="2-其他人的要求你对自己的提交做出变更"><a class="header" href="#2-其他人的要求你对自己的提交做出变更">2、🚧 其他人的要求你对自己的提交做出变更。</a></h3>
+<p>对于自己的提交作出变更这件事非常的普遍，可能是你获得了反馈，也可能是变更了代码。</p>
+<p>当有人提出变更时，请表现出大度的地方，要及时响应。他们花时间审核了你的提交，要尊重他们。开启了PR，然后一走了之，是一种恶习。如果你不知道如何修改，请花时间深入研究问题的所在，如果还是没有想到好的办法，那么是该向他人求助的时候了。</p>
+<p>如果你因为没有时间而无法继续在此issue继续工作（举例来说，如果对话已经过去了一个月了，没有任何的回复和进度，环境肯定变得不一样了），那么请向维护者告知你无法在及时的响应了，肯定有人非常乐意接替你的工作的。</p>
+<h3 id="3-你的贡献没有获得通过"><a class="header" href="#3-你的贡献没有获得通过">3、👎 你的贡献没有获得通过。</a></h3>
+<p>你的提交最后可能没有被接受。真心希望你没有在此作出过多的努力。如果你不确定为什么没有被接收的话，这正是一个很好的询问维护者反馈和澄清的机会。最终，无论如何，你都要对他们的决定表示尊重。不要去做过多无谓的争论或者是充满敌意的谩骂。如果你坚持自己，你可以随意的fork项目，按照自己的思路发展出分支来。</p>
+<p>因此很多开源项目也是这样来的。</p>
+<h3 id="4-你的贡献被接收"><a class="header" href="#4-你的贡献被接收">4、🎉 你的贡献被接收。</a></h3>
+<p>太棒了！你已经成功的做到了，为开源做贡献也不过如此！</p>
+<h2 id="七你已经做到了"><a class="header" href="#七你已经做到了">七、你已经做到了!</a></h2>
+<p>你刚刚完成了自己的开源贡献处女秀，接下来，你可能打算寻找另外的方法来做贡献，希望本文给你提供了灵感和实践。即使是你的贡献没有被采纳或接收，也不要有失风度，请对帮助过你的维护者表示感谢！</p>
+<blockquote>
+<p>开源就是由你这样的人所铸造：开启一个issue，在提交PR，评论、讨论、收集反馈，直到被接收。就是这么简单。
+<a href="https://opensourceway.community/">Back to all guides</a> </p>
+</blockquote>
+<hr />
+<h2 id="七在-github-上贡献开源项目的一般步骤"><a class="header" href="#七在-github-上贡献开源项目的一般步骤">七、在 GitHub 上贡献开源项目的一般步骤</a></h2>
+<p>在正确的场合，以正确的方式表达、参与。<br />
+作者： <a href="https://twitter.com/nixzhu">@nixzhu</a><br />
+引用：</p>
+<ul>
+<li>*<a href="https://egghead.io/series/how-to-contribute-to-an-open-source-project-on-github">How to Contribute to an Open Source Project on GitHub</a></li>
+<li>*<a href="https://help.github.com/categories/collaborating-on-projects-using-pull-requests/">Collaborating on projects using pull requests</a> </li>
+</ul>
+<p>我并不是 Git 的专家，也不太会用 GitHub。但对于开源项目，如果我在使用其过程中遇到了问题，我会很乐意去其项目代码托管处（通常是 GitHub）看看有无其他人报告同样的问题，甚至解决办法。如果没有，那我可能会写一个 Issue。同时，我也会尽我所能去研究遇到的问题，寻找其根源。如果确定能修复此问题，我也会提交一个 Pull Request。</p>
+<p>开源项目是很好的学习材料，而且一个好的开源项目在很大程度上可以减少使用它的程序员们的工作，让他们更专注于自有的业务逻辑。但我们不该止步于此，若能共同维护一个开源项目，让其越来越好，是一件对所有人都好的事情。</p>
+<p>有了参与的主观意愿还不够，我们得学会参与的规则和流程。我们以托管在 GitHub 上的开源项目为例（GitHub是一个运作比较良好的开源项目）。</p>
+<p>一般方式上需要先写一个issue，这个issue有两种方式：第一种先阐述遇到什么问题、遇到该问题的场景（在什么机器上，当执行什么命令时，遇到什么结果，经过分析认为时这个程序的一个bug）；第二种就是提PR说希望来做这个什么事情，认为这个项目的什么特性可以如何去开发，把这些东西作为一个issue提出来，经过反复讨论，一致认为没问题，则可根据提的issue来提一个pull request（是Git分支的一个模型的管理方式）。</p>
+<h3 id="issue"><a class="header" href="#issue">Issue</a></h3>
+<p>假如你使用某个开源项目时遇到了问题，那么你首先应该去其 Issues 页面看看，例如  <a href="https://github.com/CatchChat/Yep/issues">Yep 的 Issues</a> 。除了 Open 的之外，还可以看看 Closed，甚至以可能的关键字进行搜索。如果你找到了某个类似的问题，你可以进去留言，说明你所遇问题的情况，或与已有描述的差别。</p>
+<p>假如你没有找到描述类似的问题的 Issue，那么你可以点击 New Issue 来新建一个。在 Title 里简明扼要地写下问题的描述，再在 comment 里详细描述所遇问题。除了产生问题的条件，如果可能，加上一些自己对问题的推断甚至可能的解决方案。如果你对问题没有头绪，比如代码在运行中产生了一个死锁，那么你可以将程序的调用栈贴出来。这些信息有利于项目的维护者定位问题的根源。</p>
+<p>写 Issue 的重要原则就是不要随意，要将其看成一种参与，一种帮助和自助。因此，词句要清晰，描述要详尽。若发完 Issue 后发现还有需要补充的地方，可以进一步增加 comment。</p>
+<p>最后，在提交新的 Issue 之前，应该检查一遍，确保没有明显的错别字和语法错误。</p>
+<h3 id="pull-request"><a class="header" href="#pull-request">Pull Request</a></h3>
+<p>我想，有能力的程序员不会止步于发 Issue，他们会更想直接以修正代码的方式解决问题，这就需要明了 Pull Request 的流程。</p>
+<p>简单来说，Pull Request 是外部开发者参与开源项目的主要方式。因为通常一个开源项目不会允许所有人都去直接修改代码，这会让项目变得混乱，难以维护和测试。</p>
+<p>因此，外部开发者需要先 Fork 已有项目，然后在自己 Fork 的项目上进行修改，最后这两个项目就产生了差异，GitHub 可以检测到这样的差异。当外部开发者修改完成，就可以利用 GitHub 将自己的改动以 Pull Request 的方式提交到原项目，原项目维护者再对改动进行检查和测试。在确定没有问题后，将改动合并到项目中。这样外部开发者的这一次参与就完成了。</p>
+<p>听起来似乎有些复杂，但正是这样的流程保证了代码的持续稳定。因为写代码和写文章一样，并不是一件随意的事情。</p>
+<ul>
+<li>Fork。例如在  <a href="https://github.com/CatchChat/Yep">Yep</a>  的项目上，点击右上角的 Fork 按钮（请大胆地点击，这不会对世界造成任何明显的伤害），然后你就得到了当前 Yep 项目的一个拷贝。</li>
+<li>Clone。因为我们通常在本地电脑上做修改，因此先将 Fork 的项目 Clone 到本地，大家应该很熟悉吧。例如<code>git clone https://github.com/XXX/Yep.git</code>，其中 XXX 为你的 GitHub 用户名。</li>
+<li>保持同步。大多数学会 Fork 的开发者都会自然地产生一个疑问：如果原项目被改动了，那我们自己的拷贝该怎么同步原项目的改动呢？因为之前的拷贝是以那个时候的原项目为原本的。这也不难，在本地项目中，运行<code> git remote add upstream https://github.com/CatchChat/Yep.git</code>，这就将原项目作为了本地项目的上游。你可以在运行此命令之前和之后运行<code>git remote -v</code>来观察改动。之后，若你想同步原项目的改动，执行<code>git fetch upstream</code>即可，这会将原项目所有分支的改动都存储在本地，例如原项目 <code>master</code> 分支会存为 <code>upstream/master</code>，不过这还不会对本地的项目造成影响。将如你想将上游 master 的改动合并到本地，只需先切换到 <code>master</code> 分支 <code>git checkout master</code>，再执行合并 <code>git merge upstream/master</code> 即可。同理可以按需要处理 develop 分支等。</li>
+</ul>
+<p>如果你的改动很小，那么修改所持续的时间不会很长，你可以不做“保持同步”这一步。当你发出 Pull Request 后，若被维护者合并，你就可以从 GitHub 上删除你 Fork 的项目了。若下次你还想再修改，完全可以重新 Fork，这一次同样会以最新的代码为基础进行拷贝。</p>
+<p>如果你想长期参与，那在做完第三步后，还可以 <code>git branch --set-upstream-to=upstream/master master</code>，这样当上游的 master 有改动后，只需在本地 master 分支 <code>git pull</code> 即可。同理，你也可以处理 develop 等分支。</p>
+<p>通常，我们都在新分支里做修改，在测试改动没有问题后才合并到主分支。大家经过总结，出现了一套叫做 Git Flow 的流程。简单来说，在 master 外，建立一个 develop 分支用于开发，而且，每一个新特性的开发都会从 develop 分支创建新分支，新特性开发完成后再合并到 develop 分支。</p>
+<p>我们也并不需要精通 Git Flow，只需记住两个命令 <code>git flow feature start XXX</code> 和 <code>git flow feature finish XXX</code>，其中 XXX 是你要开发的特性（或要修复的Bug）的名字。我搜索到一篇很清晰的 <a href="http://danielkummer.github.io/git-flow-cheatsheet/index.zh_CN.html">关于 Git Flow 的讲解</a> ，大家一起学习。</p>
+<p>Yep 的开发使用了 Git Flow，但作为外部开发者，你也不一定非要使用它，因为本质上 Git Flow 也只是建立分支，并以分支为基础的一套方便工具。</p>
+<p>例如 <code>git flow feature start XXX </code>以 develop 为基础，创建一个新的 <code>feature/XXX </code>分支，而 <code>git flow feature finish XXX </code>就将 <code>feature/XXX </code>分支合并到 develop，你完全可以直接用 git 命令来实现。例如<code> git checkout -b XXX develop</code> 就会以 develop 分支新建一个 <code>XXX</code> 分支（这里没有自动写上的 feature 前缀），当你完成你的修改后，<code>git checkout develop</code> 然后 <code>git merge --no-ff XXX develop</code> 就可以将 <code>XXX</code> 分支合并进 develop 了。不过，你也可以直接以 <code>XXX</code> 分支发 Pull Request，只需先将其<code>git push origin XXX</code>到 GitHub，然后在你 Fork 的项目主页点击 <code>Compare &amp; pull request </code>按钮即可。如果没有这个按钮，也可以点击 New pull request 按钮来发起，注意选择正确的分支即可（你工作的分支到 Yep 的 develop 分支）。</p>
+<p>以上是个人对 Git 以及参与 GitHub 项目的粗浅理解，如有错漏，欢迎以 Issue 或 Pull Request 的方式指正！</p>
+<p>欢迎转载，但请一定注明出处！  <a href="https://github.com/nixzhu/dev-blog">https://github.com/nixzhu/dev-blog</a> </p>
+<h2 id="八开源潜规则"><a class="header" href="#八开源潜规则">八、开源潜规则</a></h2>
+<h4 id="何为潜规则"><a class="header" href="#何为潜规则">何为潜规则？</a></h4>
+<table><thead><tr><th>规则之前</th><th>概率生效</th><th>概率公开</th><th>各自解读</th></tr></thead><tbody>
+<tr><td>人数很少的时候</td><td>管理者的意识</td><td>为何会私下处理</td><td>大社区里的小圈子</td></tr>
+<tr><td>判例法的意识</td><td>情况的复杂性</td><td>为何会另外找理由</td><td>揣摩者</td></tr>
+</tbody></table>
+<h3 id="六个开源软件开发的潜规则"><a class="header" href="#六个开源软件开发的潜规则">六个开源软件开发的“潜规则”</a></h3>
+<p><strong>1、按部就班，循序渐进</strong></p>
+<ul>
+<li>理解社区目标</li>
+<li>完成社区任务：测试补丁、复审代码、撰写文档、修正错误</li>
+<li>关注整个社区的动向，而非只关注自己开发的功能</li>
+</ul>
+<p><strong>2、博闻强识，敦善不怠</strong></p>
+<ul>
+<li>在某个社区中建立声望，全面了解该项目和代码是很有必要的</li>
+<li>努力钻研项目，对项目各个部分如何与其他人协作交互有深入的理解，理解超出你擅长范围之外的知识</li>
+<li>不要只把自己的理解局限于开发者</li>
+</ul>
+<p><strong>3、粗枝大叶，自寻烦恼</strong></p>
+<p>代码提交完毕并不代表工作结束。如果代码被接受，还会有更改的讨论、常见的问答，以及做测试。要确保你可以准时提交，努力去理解如何在不影响社区其他成员的情况下，改进代码和补丁。</p>
+<p><strong>4、和谐相处，助人助己</strong></p>
+<p>开源社区不是自相残杀的丛林世界，我们更看重项目的价值而非个体的贡献和成功。如果你想给自己加分，让自己成为更重要的社区成员、让社区接纳你的代码，那就努力帮助别人。如果你熟悉网络部分，那就去复审网络部分，用你的专业技能让整个代码更加优雅。顶级的审查者经常和顶级的贡献者打交道。你帮助的人越多，你就越有价值。</p>
+<p><strong>5、八面玲珑，面面俱到</strong></p>
+<p>想要引进新技术，特别是比较有争议的技术，最好的办法就是让人无法拒绝它。你需要透彻地了解底层代码，考虑每个极端情况。在不影响已实现功能的前提下增加新功能。不仅仅是完成就行，还要在特性的完善上下功夫。</p>
+<p><strong>6、糜不有初，鲜克有终</strong></p>
+<p>开源社区也有许多玩玩就算的人，但是承诺了就不要轻易失信。不要就因为提交被拒就离开社区。找出原因，修正错误，然后再试一试。当你开发的时候，要和整个代码库保持一致，确保即使项目发生变化而你的补丁仍然可用。不要把你的代码留给别人修复，要自己修复，形成社区良好风气。</p>
+<h3 id="人人平等与精英治理"><a class="header" href="#人人平等与精英治理">人人平等与精英治理</a></h3>
+<p>在开源社区存在一种现象：人人平等与精英治理。其实这背后潜在某种矛盾性。在开源社区里面，我们提倡的是人人平等，但实际上开源社区基本上是由一些Maintainer在经营治理，它不是人人都可以参与的。所以我觉得开源社区是精英治理的模式，这背后的精英，通常属于某一家公司或某几家公司。
+社区里面所谓的人人平等，从发言权角度考虑是成立的。你可以表达你的意见，但并不见得你的意见会被采纳。</p>
+<h3 id="社区中的潜规则"><a class="header" href="#社区中的潜规则">社区中的潜规则</a></h3>
+<p>社区里会有张罗大大小小事情的人，这种人很了不起，他是社区存在的核心或者说是社区存在的原因。可能他在社区里有一些代码大家都在用，只要开源出来放在那里，开源的项目便会持续存在。</p>
+<p>但社区就不一定了，我们经常看到一些没有人维护的“死掉”的社区，如果社区里的人在社区里依然坚持做某件事情，其实就会使社区真正存活。所以社区是由人组成，而不是由代码组成。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="open-source-culture-and-awareness.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="open-source-usage-and-best-practices.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="open-source-culture-and-awareness.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="open-source-usage-and-best-practices.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </body>
+</html>

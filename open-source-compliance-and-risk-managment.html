@@ -1,0 +1,821 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>开源合规及其风险管理 - 开源雨林 —— 开源通识课程</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="preface.html"><strong aria-hidden="true">1.</strong> 前言</a></li><li class="chapter-item expanded "><a href="open-source-culture-and-awareness.html"><strong aria-hidden="true">2.</strong> 开源文化与认知</a></li><li class="chapter-item expanded "><a href="community-rules-and-hidden-rules.html"><strong aria-hidden="true">3.</strong> 社区规则和潜规则</a></li><li class="chapter-item expanded "><a href="open-source-usage-and-best-practices.html"><strong aria-hidden="true">4.</strong> 开源使用规范及业界优秀实践</a></li><li class="chapter-item expanded "><a href="open-source-ecosystem-build-and-best-practices.html"><strong aria-hidden="true">5.</strong> 开源生态构建及业界优秀实践</a></li><li class="chapter-item expanded "><a href="open-source-compliance-and-risk-managment.html" class="active"><strong aria-hidden="true">6.</strong> 开源合规及其风险管理</a></li><li class="chapter-item expanded "><a href="open-source-security-and-risk-managment.html"><strong aria-hidden="true">7.</strong> 开源安全及其风险管理</a></li><li class="chapter-item expanded "><a href="open-source-lifecycle-managment.html"><strong aria-hidden="true">8.</strong> 开源生命周期管理</a></li><li class="chapter-item expanded "><a href="open-source-strategy-and-tactics.html"><strong aria-hidden="true">9.</strong> 企业开源的战略和战术</a></li><li class="chapter-item expanded "><a href="enterprise-strategy-and-bussiness-model.html"><strong aria-hidden="true">10.</strong> 开源与商业模式</a></li><li class="chapter-item expanded "><a href="best-practices-for-enterprise-open-source-governance.html"><strong aria-hidden="true">11.</strong> 开源使用优秀实践分享</a></li><li class="chapter-item expanded "><a href="best-practices-for-open-source-ecosystems.html"><strong aria-hidden="true">12.</strong> 开源生态优秀实践分享</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">开源雨林 —— 开源通识课程</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="开源合规及其风险管理"><a class="header" href="#开源合规及其风险管理">开源合规及其风险管理</a></h1>
+<h2 id="开源合规及其风险管理的目的和意义"><a class="header" href="#开源合规及其风险管理的目的和意义">开源合规及其风险管理的目的和意义</a></h2>
+<ul>
+<li>了解开源与许可协议、专利</li>
+<li>了解不同场景下开源的合法合规要求，避免开源代码因不符合相关要求在对外提供后而引发的法务和知识产权方面的影响</li>
+<li>了解合法合规工具，掌握合法合规提升效率的方法</li>
+</ul>
+<h2 id="开源合法合规的必要性"><a class="header" href="#开源合法合规的必要性">开源合法合规的必要性</a></h2>
+<ul>
+<li>外部压力
+<ul>
+<li>开源软件维权人的积极维权</li>
+<li>开源社区规范的倒逼</li>
+<li>开源爱好者的自媒体监督</li>
+</ul>
+</li>
+<li>内部压力
+<ul>
+<li>内部流程规范的要求和追责机制</li>
+</ul>
+</li>
+</ul>
+<h2 id="开源软件许可证与知识产权风险"><a class="header" href="#开源软件许可证与知识产权风险">开源软件许可证与知识产权风险</a></h2>
+<h3 id="开源软件主要法律风险"><a class="header" href="#开源软件主要法律风险">开源软件主要法律风险</a></h3>
+<ul>
+<li>许可证义务遵从 
+<ul>
+<li>违反开源软件许可证而侵犯版权
+<ul>
+<li>违反形式义务：未按 License 要求添加版权声明、许可证文本等</li>
+<li>违反开源义务：使用负有开放源代码义务而未开源</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>企业核心代码/专利被“污染”</li>
+<li>软件自带风险
+<ul>
+<li>专利侵权风险</li>
+<li>版权及安全风险</li>
+</ul>
+</li>
+</ul>
+<h3 id="开源软件主要法律风险-1"><a class="header" href="#开源软件主要法律风险-1">开源软件主要法律风险</a></h3>
+<ul>
+<li>著作权(版权)：保护著作具创作性之原始作品 
+<ul>
+<li>保护表达(不涉及软件设计思想)</li>
+<li>涵盖软件、书籍，及其他相类作品</li>
+</ul>
+</li>
+<li>专利：具新颖性及非属显著已知状态的实用发明
+<ul>
+<li>抑制垄断以鼓励创新</li>
+</ul>
+</li>
+<li>商业秘密：保护具价值的保密信息</li>
+<li>商标：保护用来辨识产品来源的标章（文字、图形记号、标语、颜色，等等。）
+<ul>
+<li>保护消费者及品牌；避免消费者混淆及品牌淡化</li>
+</ul>
+</li>
+</ul>
+<h3 id="软件中的著作权版权概念"><a class="header" href="#软件中的著作权版权概念">软件中的著作权(版权)概念</a></h3>
+<ul>
+<li>基本规则：著作权保护具创作性的作品</li>
+<li>著作权一般适用於文学作品，例如书籍、电影、图片、音乐、地图</li>
+<li>软件受到著作权保护
+<ul>
+<li>软件被著作权保护的部分并非功能（这部份是被专利保护的）而是表达（实作细节中的创作性）</li>
+<li>包括二进制及源代码皆受到保护</li>
+</ul>
+</li>
+<li>著作权利人只对他/她创作的作品有控制地位，不涉及他人的独立作品</li>
+<li>未经作者同意的复制可能导致侵权行为</li>
+</ul>
+<h3 id="著作权版权中与软件最相关的权利类型"><a class="header" href="#著作权版权中与软件最相关的权利类型">著作权(版权)中与软件最相关的权利类型</a></h3>
+<ul>
+<li>复制软件的权利 - 制作副本</li>
+<li>创作「衍生作品」的权利 - 进行修改
+<ul>
+<li>此处改编作品一词引自美国著作权法</li>
+<li>其为「专用名词」，意指依法令的特定涵义来解释，而非依一般字典定义。</li>
+<li>一般来说，其指的是基於一个原作品来创作的新作品，过程中有足够的创作性加入，而让新作品表现为另一具创作性的作品，而非仅为原作品的复制件。</li>
+</ul>
+</li>
+<li>分发的权利
+<ul>
+<li>分发一般被视为，在二进制或是源代码的形式下，提供软件一部分的复制件给其他的实体。（在你公司或是组织外的个人或是组织）
+注意：对何者构成「衍生作品」或「分发」的解释，在开源软件社区与开源软件法律圈中仍有争议</li>
+</ul>
+</li>
+</ul>
+<h3 id="license"><a class="header" href="#license">License</a></h3>
+<ul>
+<li>License 是著作权或专利拥有者，授与同意或权利给其他人的方法</li>
+<li>许可得被限定在：
+<ul>
+<li>被允许的使用类型 （商业性/非商业性、发布、改编作品/制造、使制造、生产 ）</li>
+<li>专有或非专有的条件</li>
+<li>地理范围</li>
+<li>永久的或限定期间</li>
+</ul>
+</li>
+<li>许可得是附条件的授与，意指仅有在遵循某些义务性要求才会获得许可
+<ul>
+<li>例如，提供署名，或给予互惠性许可</li>
+</ul>
+</li>
+<li>可能包含将保证、赔偿、支援、升级、维护相关的合同条件</li>
+</ul>
+<h3 id="你想要如何使用自由开源软件组件"><a class="header" href="#你想要如何使用自由开源软件组件">你想要如何使用自由开源软件组件？</a></h3>
+<p>常见的使用情境包括：</p>
+<ul>
+<li>合并(Incorporation)
+<ul>
+<li>开发人员可能会复制部分的自由开源软件，到你的软件产品之中。</li>
+<li>相关的字词包括：
+<ul>
+<li>整合(Integrating)</li>
+<li>融合(Merging)</li>
+<li>贴上(Pasting)</li>
+<li>改用(Adapting)</li>
+<li>嵌入(Inserting)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>链结(Linking)
+<ul>
+<li>开发人员可能会链结或加入自由开源软件许可组件，与你的软件产品一起运作。</li>
+<li>相关的字词包括：
+<ul>
+<li>静态/动态键结(Static/Dynamic Linking)</li>
+<li>配对(Pairing)</li>
+<li>贴上结合(Combining)</li>
+<li>利用(Utilizing)</li>
+<li>打包(Packaging)</li>
+<li>建立相依关系(Creating interdependency)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>修改(Modification)
+<ul>
+<li>开发人员可能会对自由开源软件组件进行变动，包括</li>
+<li>增加/注入新的程序代码到自由开源软件组件里</li>
+<li>对自由开源软件组件进行修正、优化，或更改</li>
+<li>删除或移除程序代码</li>
+</ul>
+</li>
+<li>转变(Translation)
+<ul>
+<li>开发者可能会转化程序代码的状态</li>
+<li>例子包括：
+<ul>
+<li>将中文翻译成英文</li>
+<li>将C++转变为Java</li>
+<li>编译成二进位代码</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="开发工具"><a class="header" href="#开发工具">开发工具</a></h3>
+<ul>
+<li>开发工具可能会在幕後执行某些操作行为。
+<ul>
+<li>例如，开发工具可能会将其自身的部分程序代码注入至输出成果。</li>
+</ul>
+</li>
+</ul>
+<h3 id="自由开源软件组件如何被发行"><a class="header" href="#自由开源软件组件如何被发行">自由开源软件组件如何被发行？</a></h3>
+<ul>
+<li>谁会收受到这些软件？
+<ul>
+<li>顾客/合作夥伴</li>
+<li>社区项目</li>
+<li>在商业团体范围内的另一个法人(这可能会被视为发行)</li>
+</ul>
+</li>
+<li>传递的形式是什麽？
+<ul>
+<li>以程序源代码传递</li>
+<li>以二进位代码传递</li>
+<li>预载到硬体里</li>
+</ul>
+</li>
+</ul>
+<h3 id="不同-license-约束内容的区别"><a class="header" href="#不同-license-约束内容的区别">不同 License 约束内容的区别</a></h3>
+<p>以下8种 License 覆盖了开源软件中 90% 以上的代码，采用这些 License 的开源软件在业界应用也最为广泛；其中 GPL V2 对于开发者和二次开发者的义务要求最多，使用时应加以关注。</p>
+<table><thead><tr><th>类别</th><th style="text-align: center">许可证名称</th><th style="text-align: left">典型项目</th><th>许可证注意事项</th><th>应用建议</th></tr></thead><tbody>
+<tr><td>BSD类</td><td style="text-align: center">Apache V2.0</td><td style="text-align: left">ACE Tomcat</td><td>1、允许各种链接，无开源义务。2、允许修改，无开源义务。3、软件所有人授予专利许可。</td><td>推荐使用！商业友好型许可证</td></tr>
+<tr><td>BSD类</td><td style="text-align: center">BSD</td><td style="text-align: left">FreeBSD</td><td>1、允许各种链接，无开源义务。2、允许修改，无开源义务。3、无专利规定。</td><td>推荐使用！商业友好型许可证</td></tr>
+<tr><td>BSD类</td><td style="text-align: center">MIT</td><td style="text-align: left">ASN.1</td><td>1、允许各种链接，无开源义务。2、允许修改，无开源义务。3、无专利规定。</td><td>推荐使用！商业友好型许可证</td></tr>
+<tr><td>MPL类</td><td style="text-align: center">CPL V1.0</td><td style="text-align: left">JUnit</td><td>1、允许各种链接，无开源义务。2、允许修改，但修改部分需要开源。3、截取部分或全部开源代码与私有源代码混合将视为对原始软件的修改从而导致私有代码开源。4、软件所有人授予专利许可。</td><td>可以使用！但关注修改后对应的开源义务</td></tr>
+<tr><td>MPL类</td><td style="text-align: center">MPL V1.0</td><td style="text-align: left">FireFox</td><td>1、允许各种链接，无开源义务。2、允许修改，但修改部分需要开源。3、截取部分或全部开源代码与私有源代码混合将视为对原始软件的修改从而导致私有代码开源。4、软件所有人授予专利许可</td><td>可以使用！但关注修改后对应的开源义务</td></tr>
+<tr><td>MPL类</td><td style="text-align: center">CDDL V1.0</td><td style="text-align: left">OpenSolaris</td><td>1、允许各种链接，无开源义务。2、允许修改，但修改部分需要开源。3、截取部分或全部开源代码与私有源代码混合将视为对原始软件的修改从而导致私有代码开源。4、软件所有人授予专利许可</td><td>可以使用！但关注修改后对应的开源义务</td></tr>
+<tr><td>GPL类</td><td style="text-align: center">LGPL V2</td><td style="text-align: left">Jboss ml， OpenOffice， UcLibc，SDL</td><td>1、允许各种链接，动态链接无开源义务，静态链接需要开放与之链接私有软件的.o文件和makefile.2、允许修改再链接到私有软件，但是修改增加的功能实现不能依赖私有软件的数据或功能。3、允许不受限制的使用头文件中的numerical parameters（数值参数）, data structure layouts（数据结构布局） and accessors（存取）, or small macros（小宏）, inline functions（内联参数） and templates (ten or fewer lines in length)（十行以内的模板）4、仅原则性声明专利应免费许可，无详细规定</td><td>慎重使用！只允许动态链接方式使用</td></tr>
+<tr><td>GPL类</td><td style="text-align: center">GPL V2</td><td style="text-align: left">Linux</td><td>1、允许各种链接，但被链接的整个产品需要开源。 2、允许修改，但被修改部分及整个产品均需要开源。3、通过pipes, sockets和命令行参数与GPL软件进行通信，不会导致私有软件被传染。4、仅原则性声明专利应免费许可，无详细规定。</td><td>慎重使用！由于可能导致产品整体负有开源义务，不建议使用</td></tr>
+</tbody></table>
+<ul>
+<li>建议大家使用相对宽松型的License。</li>
+</ul>
+<h3 id="开源软件许可证与知识产权风险-1"><a class="header" href="#开源软件许可证与知识产权风险-1">开源软件许可证与知识产权风险</a></h3>
+<ul>
+<li>场景一：若企业作为使用人使用开源软件（Apache和BSD等许可证无风险）</li>
+</ul>
+<table><thead><tr><th>许可证类型</th><th style="text-align: center">GPL V2</th><th style="text-align: left">GPL V3</th><th>MPL 2.0</th><th>EPL 1.0</th><th>APACHE V2</th><th>BSD/ISC</th></tr></thead><tbody>
+<tr><td>软件传染性（开源）</td><td style="text-align: center">强传染</td><td style="text-align: left">强传染</td><td>修改部分传染</td><td>修改部分传染</td><td>无</td><td>无</td></tr>
+<tr><td>给所有下游用户的专利许可</td><td style="text-align: center">无规定（默认有）</td><td style="text-align: left">无</td><td>无</td><td>无</td><td>无</td><td>无</td></tr>
+<tr><td>能否起诉其他用户专利侵权</td><td style="text-align: center">可以</td><td style="text-align: left">不可以</td><td>可以，但软件许可终止</td><td>可以，但专利许可终止</td><td>可以，但专利许可终止</td><td>无</td></tr>
+</tbody></table>
+<ul>
+<li>场景二：若企业作为贡献人贡献开源代码（MPL/EPL/Apache的专利许可仅限于贡献部分）</li>
+</ul>
+<table><thead><tr><th>许可证类型</th><th style="text-align: center">GPL V2</th><th style="text-align: left">GPL V3</th><th>MPL 2.0</th><th>EPL 1.0</th><th>APACHE V2</th><th>BSD/ISC</th></tr></thead><tbody>
+<tr><td>软件传染性（开源）</td><td style="text-align: center">强传染</td><td style="text-align: left">强传染</td><td>修改部分传染</td><td>修改部分传染</td><td>无</td><td>无</td></tr>
+<tr><td>给所有下游用户的专利许可</td><td style="text-align: center">无规定（默认整个软件）</td><td style="text-align: left">整个软件</td><td>贡献部分</td><td>贡献部分</td><td>主动贡献部分（含贡献者关联公司专利）</td><td>无规定（默认主动贡献代码有）</td></tr>
+<tr><td>能否起诉其他用户专利侵权</td><td style="text-align: center">默认有许可，不可</td><td style="text-align: left">已许可，不可</td><td>已许可，不可</td><td></td><td>可以，但专利许可终止</td><td>已许可，不可</td></tr>
+</tbody></table>
+<h3 id="许可证遵从义务引发的诉讼"><a class="header" href="#许可证遵从义务引发的诉讼">许可证遵从义务引发的诉讼</a></h3>
+<p>许可证遵从义务引发的诉讼主要指以违反许可证义务的版权诉讼为主，由维权个人/组织发起，原告胜诉率极高，后果含开源、赔款、禁令（和解：开源/赔偿），主要集中在欧美，以美国和德国为主，但近些年来国内的诉讼也越来越多。</p>
+<ul>
+<li>美国发起诉讼的部分案例
+<ul>
+<li>2007年，SFLC代理busybox分别起诉Xterasys Corporation ，High-Gain Antennas，verizon，Monsoon Multimedia ，每诉均要求禁令，后均和解</li>
+<li>2008年SFLC代理FSF起诉思科，后和解</li>
+<li>2009年SFC代理busybox起诉三星、百思买等14加公司，法院首次下达开源软件禁令</li>
+<li>2013年XimpleWare起诉Versata等12家公司，后赔偿和解</li>
+<li>2009-2014年，多家公司收到来SFLC/SFC的警告函，包括三星（三星2013年再次对SFC捐款和解），均私下和解。</li>
+<li>2016年，Artifex Software VS Hancom，后赔偿和解。</li>
+</ul>
+</li>
+<li>欧盟发起诉讼的部分案例
+<ul>
+<li>除了2007年的Iliad案在法国，其他均发生在德国。</li>
+<li>2004年，Welte起诉SiteCom，被告败诉，法院首次颁发开源软件禁令</li>
+<li>2006年， Welte起诉Versatel，被告败诉</li>
+<li>2006年， Welte起诉D-Link，被告败诉。赔偿2000余欧及诉讼费用，并披露销量以及上下游名单</li>
+<li>2007年，Welte起诉Skype， 被告败诉</li>
+<li>2007年，Welte起诉lliad, 被告败诉</li>
+<li>2013年， Welte起诉Fantec，被告败诉，赔偿8000余欧及诉讼费用，并披露销量及上下游名单</li>
+<li>2015年， Mchardy起诉某厂商，法院发临时禁令
+期间，上百家公司收到来自Welte和Mchardy的违反开源许可证义务的警告函，绝大部分和解。</li>
+<li>2016，Mchardy 起诉德国某运营商，申请禁令，后原告撤诉</li>
+<li>2016， Linux权利人起诉Vmware，后原告败诉</li>
+<li>2016，某软件商VS德国某大学，申请禁令，原告胜诉</li>
+<li>2017， Mchardy起诉Gerniatech，申请禁令，后原告撤诉</li>
+</ul>
+</li>
+</ul>
+<h3 id="许可证遵从义务引发的非诉问题示例"><a class="header" href="#许可证遵从义务引发的非诉问题示例">许可证遵从义务引发的非诉问题示例</a></h3>
+<ul>
+<li>ONAP 发布代码前会例行扫描检视，发现因许可证冲突导致无法使用的代码多次要求运营商贡献方重写或删除。</li>
+<li>企业某对外开源项目中使用并修改了Apache license代码，但在该文件包中无修改标记且遗漏许可证文本，被权利人发现在社媒公开投诉。</li>
+<li>企业某对外开源项目中误将开源无修改软件的版权声明误替换为企业版权声明，代码开放3分钟后即被开源爱好者发现并在网络公开。</li>
+</ul>
+<h3 id="软件中的专利概念"><a class="header" href="#软件中的专利概念">软件中的专利概念</a></h3>
+<ul>
+<li>专利保护功能性 – 这可以包含操作的方法，例如计算机程序。
+<ul>
+<li>不保护抽象思想、自然法则</li>
+</ul>
+</li>
+<li>为於特定地区取得专利，必须在该特定的司法管辖领域提出专利申请。倘该专利被核可，专利拥有者有权利可以阻止他人实施该专利的功能，不论该功能是否为独立创作。</li>
+<li>其他希望利用该项技术者，或会洽询专利许可（该许可可能授与使用、制造、使制造、销售，及输入及输出该技术的权利）。</li>
+<li>即使其他人独立地创作相同的发明，仍可能导致侵权行为。</li>
+</ul>
+<h3 id="开源软件专利侵权风险业界部分诉讼"><a class="header" href="#开源软件专利侵权风险业界部分诉讼">开源软件专利侵权风险——业界部分诉讼</a></h3>
+<ul>
+<li>相比商业软件：诉讼较少——本身的特性（免费许可与不诉义务）、社区环境</li>
+<li>版权权人起诉少：以下诉讼除了最后一起均为第三方起诉开源软件用户</li>
+<li>OIN，FSF等：常协助被告搜集无效证据、号召联合抵制、促成低成本和解或无效原告专利</li>
+</ul>
+<table><thead><tr><th>起诉时间</th><th style="text-align: center">原告</th><th style="text-align: left">被告</th><th>起诉法院</th><th>涉案开源软件</th><th>结果</th></tr></thead><tbody>
+<tr><td>2006年</td><td style="text-align: center">Firesta</td><td style="text-align: left">Redhat</td><td>东德克萨斯地区法院</td><td>Hibernate 3.0软件，Jboss开源中间件的一部分，许可证 LGPLV2.1</td><td>和解,内容保密</td></tr>
+<tr><td>2007年</td><td style="text-align: center">IP Innovation L.L.C. Technology Licensing Corporation, patent troll</td><td style="text-align: left">Redhat,Novell</td><td>德州东区法院</td><td>Linux系统,许可证GPLV2</td><td>原告败诉。专利被无效。被告寻求OIN支持寻找无效证据</td></tr>
+<tr><td>2007年</td><td style="text-align: center">NetApp (被告的竞争对手)</td><td style="text-align: left">SUN</td><td>德州东区法院</td><td>ZFS,Sun为solaris操作系统开发的文件系统，许可证CDDL</td><td>和解，内容保密</td></tr>
+<tr><td>2008年</td><td style="text-align: center">微软 （首次诉讼攻击Linux）（分蛋糕）</td><td style="text-align: left">TomTom,导航设备制造商</td><td>华盛顿西区法院，原告同时申请ITC调查</td><td>基于Linux的车载计算机系统和导航系统产品，GPLV2</td><td>和解，内容保密，被告寻求OIN等支持</td></tr>
+<tr><td>2008年</td><td style="text-align: center">Trend Micro （被告的竞争对手）</td><td style="text-align: left">Barracuda，07年初加入OIN</td><td>加州北区法院。同时申请ITC调查</td><td>Clam AV,一款类Unix上使用的开源的反病毒软件，许可证GPLV2</td><td>和解，内容保密。被告寻求多个社区支持，专利被ITC专家认定无效。</td></tr>
+<tr><td>2009年</td><td style="text-align: center">Software tree,patent troll</td><td style="text-align: left">Redhat,HP,Dell,Genuintec 后三都是Redhat集成产品的销售者</td><td>东德克萨斯地区法院</td><td>JBoss开源中间件,许可证LGPLv2</td><td>和解，内容保密</td></tr>
+<tr><td>2009年</td><td style="text-align: center">Acacia的子公司</td><td style="text-align: left">Redhat,HP,Dell,Genuintec 后三都是Redhat集成产品的销售者</td><td>东德克萨斯地区法院</td><td>JBoss开源中间件,许可证LGPLv2</td><td>和解，内容保密</td></tr>
+<tr><td>2010年</td><td style="text-align: center">Oracle America, Inc</td><td style="text-align: left">Google</td><td>加州北区法院</td><td>Android操作系统 许可证apache v2.1</td><td>审理中</td></tr>
+<tr><td>2013年</td><td style="text-align: center">XimpleWare（被告竞争对手）</td><td style="text-align: left">Versata等12家公司</td><td>加州北区法院</td><td>一款编码规则软件, GPLv2</td><td>和解</td></tr>
+</tbody></table>
+<h3 id="软件本身版权风险"><a class="header" href="#软件本身版权风险">软件本身版权风险</a></h3>
+<ul>
+<li>版权风险：代码开发时因未经授权使用开源代码引发</li>
+<li>诉讼/纠纷示例：
+<ul>
+<li>Oracle VS. Google ， Android API接口+9行代码 （争议金额：90亿）</li>
+<li>Elasticsearch.Inc. VS.  Floragunn GmbH and certain GitHub users ， X-Pack source code in content hosted on GitHub</li>
+</ul>
+</li>
+</ul>
+<p>专利涉及知识产权本身的风险，不仅要看最后官司的结果，更要看这中间带来的对企业品牌声誉的影响，而且中间所付出的各种诉讼的费用以及相应的人力成本都是非常巨大的。所以说我们的建议就是使用开源参与开源之前就能够有专业的团队和专家开发者，大家能够懂开源合规是什么，尽可能地在自身的能力范围内做到开源合规，这是非常重要的，可以给公司将来的风险能够降低到最低。</p>
+<h3 id="企业使用开源合规流程范例"><a class="header" href="#企业使用开源合规流程范例">企业使用开源合规流程范例</a></h3>
+<p>企业使用开源合规流程范例</p>
+<ul>
+<li>辨识（Identification）：辨识自由开源软件组件以供审核之用</li>
+<li>稽核（Audit）：扫描或稽核源代码并且确认源代码的来源出处以及许可证</li>
+<li>疑虑处理（Resolve）：处理任何稽核有关疑虑以让其与公司的自由开源软件政策相合</li>
+<li>审核（Reviews）&amp; 核可（Approvals）：自由开源软件组件经审核及核可，同合规之纪录</li>
+<li>登录（Registration）：依产品别及释出别来纪录核可软件/版本信息到列表上</li>
+<li>声明（Notices）：编辑发行所需之各项声明</li>
+<li>验证（Verifications）：验证发行套件的源代码状态，并且 验证提供声明的妥适状态</li>
+<li>发行（Distribution）：发行源码、相关声明，及索取源代码的书面文件</li>
+<li>验证（Verifications）：发行后的再次验证</li>
+</ul>
+<h3 id="辨识及追踪自由开源软件的使用状况"><a class="header" href="#辨识及追踪自由开源软件的使用状况">辨识及追踪自由开源软件的使用状况</a></h3>
+<ul>
+<li>步骤
+<ul>
+<li>来自工程师的输入要求</li>
+<li>扫描软件</li>
+<li>对开源软件的发现尽相当努力(Due Diligence)</li>
+<li>将人工辨识之新组件信息加到知识库</li>
+</ul>
+</li>
+<li>成果
+<ul>
+<li>对该自由开源软件的合规纪录被建立或更新</li>
+<li>依自由开源软件政策所订，穷尽或限定范围内，对源代码审核之稽核将被要求。</li>
+</ul>
+</li>
+</ul>
+<h3 id="稽核程序源代码"><a class="header" href="#稽核程序源代码">稽核程序源代码</a></h3>
+<p>辨识自由开源软件许可证</p>
+<ul>
+<li>步骤
+<ul>
+<li>供稽核之程序源代码被辨识</li>
+<li>源代码或已使用软件工具进行扫描</li>
+<li>稽核或扫描的「成果(Hits)」被审核及验证，而得作为该程序代码适宜的来源信息</li>
+<li>稽核或扫描依该软件的开发与释出周期而被反覆操作</li>
+</ul>
+</li>
+<li>成果
+<ul>
+<li>稽核报告能用以辨识：</li>
+<li>程序源代码的原始出处及其许可证</li>
+<li>有待处理的疑虑</li>
+</ul>
+</li>
+</ul>
+<h3 id="处理疑虑"><a class="header" href="#处理疑虑">处理疑虑</a></h3>
+<p>处理稽核过程辨识出的所有疑虑</p>
+<ul>
+<li>步骤
+<ul>
+<li>提供反馈予相应的工程师，以处理在稽核报告里，与你的自由开源软件政策冲突的疑虑</li>
+<li>该工程师接续就相关的程序源代码实施自由开源软件审核</li>
+</ul>
+</li>
+<li>成果
+<ul>
+<li>对报告里每一个被标记的文档作处理，及对任何标记许可冲突的状况作处理</li>
+</ul>
+</li>
+</ul>
+<h3 id="执行审核"><a class="header" href="#执行审核">执行审核</a></h3>
+<p>审核已处理之疑虑以确认其与你的自由开源软件政策相合</p>
+<ul>
+<li>步骤
+<ul>
+<li>於审核工作人员里，应包含适切对应的管理阶层</li>
+<li>依你的自由开源软件政策为参据来实施审核</li>
+</ul>
+</li>
+<li>成果
+<ul>
+<li>确保在稽核报告里的软件与自由开源软件政策相合</li>
+<li>准备往下一个步骤前(例如：核可前)，保存稽核报告的发现，并标注已处理的疑虑</li>
+</ul>
+</li>
+</ul>
+<h3 id="核可"><a class="header" href="#核可">核可</a></h3>
+<ul>
+<li>根据上一个步骤的软件稽核及审核结果，软件可能被核可或可能不被核可使用</li>
+<li>核可时，必须注明被核可的自由开源软件版本、被核可组件的使用模式，以及其他依自由开源软件许可证应施行的义务性要求</li>
+<li>核可须对应到适宜的行政管理阶层来进行</li>
+</ul>
+<h3 id="纪录--核可追踪"><a class="header" href="#纪录--核可追踪">纪录 / 核可追踪</a></h3>
+<ul>
+<li>当一个自由开源软件组件被核可在产品中使用时，其应被加入该产品的软件清单</li>
+<li>该项核可及核可的条件，必须被登记纪录在可追踪系统里</li>
+<li>若新版本的自由开源软件组件或新的使用模式被提出时，该追踪系统必须清楚显示这需要一个新的核可</li>
+</ul>
+<h3 id="声明"><a class="header" href="#声明">声明</a></h3>
+<p>为发行产品中任一自由开源软件备妥适宜的声明：</p>
+<ul>
+<li>藉由完整著作权及署名声明之提供，来承认自由开源软件的使用</li>
+<li>通知产品的终端使用者，如何获得自由开源软件程序源代码的复制件（当此要求适用时，例如 GPL 及 LGPL 即为此种状况）</li>
+<li>应需求复制产品里自由开源软件程序代码之全部许可证协议文件</li>
+</ul>
+<h3 id="发行前的验证"><a class="header" href="#发行前的验证">发行前的验证</a></h3>
+<p>验证发行的软件已经过审核及核可 </p>
+<ul>
+<li>步骤
+<ul>
+<li>验证预计发行的自由开源软件套件已经过辨识及核可</li>
+<li>验证已经过审核的程序源代码与贩售产品里相对应的二进位代码是符合的</li>
+<li>确保已被审核的源代码符合相对应的产品执行文档</li>
+<li>验证所有相应的声明已被列入，以告知终端使用者其索取已被辨识之自由开源软件程序源代码的权利</li>
+<li>确保所有相应的声明已被纳入好让终端用户知道他们能获取相关自由开源软件的权益</li>
+<li>验证合规于其他已被辨识的义务性要求</li>
+</ul>
+</li>
+<li>成果
+<ul>
+<li>使发行的套件仅会包含已经过审核及核可的软件</li>
+<li>「供发行的合规稽证(Artifacts)」(依 OpenChain 规范书所定义)，包括被列入发行套件或其他投递模式所相应的声明文档</li>
+</ul>
+</li>
+</ul>
+<h3 id="相应程序源代码的发行"><a class="header" href="#相应程序源代码的发行">相应程序源代码的发行</a></h3>
+<p>依据要求提供相应的程序源代码 </p>
+<ul>
+<li>步骤
+<ul>
+<li>提供伴随任何相关联建置工具以及文件的对应程序源代码（例如，上传到发行网站上或列入发行套件里）</li>
+<li>此相应程序源代码应被辨识与标记，以和其产品及版本别对应</li>
+</ul>
+</li>
+<li>成果
+<ul>
+<li>提供相对应程序源代码的义务性规则被满足</li>
+</ul>
+</li>
+</ul>
+<h3 id="最后验证"><a class="header" href="#最后验证">最后验证</a></h3>
+<p>确认合规於许可证的义务性规定</p>
+<ul>
+<li>步骤
+<ul>
+<li>验证相对应的程序源代码（若有的话）已经被正确地上传或发行</li>
+<li>确保其他许可证有被遵守</li>
+<li>验证上传或发行的程序源代码与经核可的版本是相对应的</li>
+<li>所需声明已被适当地发布与提供验证</li>
+<li>验证其他被辨识出的义务性要求已达到</li>
+</ul>
+</li>
+<li>成果
+<ul>
+<li>验证供发行的合规稽证(Artifacts)已被适切地提供</li>
+</ul>
+</li>
+</ul>
+<h2 id="企业原创项目开源前的合法合规要求"><a class="header" href="#企业原创项目开源前的合法合规要求">企业原创项目开源前的合法合规要求</a></h2>
+<h3 id="业界开源项目的法务合规保障机制"><a class="header" href="#业界开源项目的法务合规保障机制">业界开源项目的法务合规保障机制</a></h3>
+<p>重要提示：当前开源社区对于合规保障较弱，而公众对于一般开源社区也较为宽容，发现问题及时整改解决即可，但由单个企业主导发布的开源项目，则容易被公众或竞争对手针对，因此要有更严格的保障</p>
+<ul>
+<li>项目发布前培训：项目发布前，基金会对项目负责人进行培训，告知相关法务注意事项，如license兼容性整改、贡献者协议要求等，但没有强制审查检验机制。</li>
+<li>项目负责人组织合规整改：项目负责人组织清理与apache license不兼容的代码，通过人工审查+maven插件工具+其他扫描工具（项目负责人自行决定） 进行识别清理，但没有强制在项目发布前要求完全清理，可能会在发布后持续进行。对于删除原有copyright、存在不兼容license等行为可能难以被发现，主要靠发布后用户/贡献者持续发现推动解决。</li>
+<li>签署贡献者协议：项目发布后，要求每个贡献者签署贡献者协议，约定贡献代码版权归属（一般归贡献者），但代码必须已apache或与其兼容的License发布，若含有专利，则贡献者必须确保该专利是被授权给所有用户使用，但即使存在问题，也可能难以第一时间发现，主要靠自觉</li>
+<li>Committer持续审视：Committer负责审视贡献代码，识别和解决合规问题，依赖个人能力，主要还是靠贡献者自觉。</li>
+<li>问题发现——解决：社区中的合规问题一般通过“用户/贡献者反馈——committer组织整改”方式解决，若发现抄袭、修改版权等行为，committer会组织进行整改，而相应贡献者也会遭到社区谴责，可能影响其后续的贡献。</li>
+</ul>
+<h3 id="开源前需要考虑的合法合规事项"><a class="header" href="#开源前需要考虑的合法合规事项">开源前需要考虑的合法合规事项</a></h3>
+<p>企业原创项目：项目企业原创或主导，由企业主动对外开放，以开源社区形式运作的开源项目。</p>
+<ul>
+<li>WHY?
+<ul>
+<li>确保项目合法合规</li>
+</ul>
+</li>
+<li>WHAT?
+<ul>
+<li>制定并配置项目法务文档：明确项目License,贡献者协议、企业权利声明等文档</li>
+<li>识别项目中其他开源软件及其license：明确项目所有代码来源，区分企业代码，开源代码，确保持续可追溯</li>
+<li>清理与项目license冲突的开源软件：
+<ul>
+<li>清理与项目License冲突的开源软件</li>
+<li>在项目代码中标识项目license与企业版权信息</li>
+</ul>
+</li>
+<li>根据已有license，履行相应义务：
+<ul>
+<li>基于已识别到的开源软软件清单，分析各license风险，剔除权利不明或义务难以履行的开源软件</li>
+<li>履行开源软件义务（主要为声明义务）</li>
+</ul>
+</li>
+<li>管控后续合入代码，符合license要求：
+<ul>
+<li>与贡献者签署贡献者协议，明确贡献代码版权归属，约束贡献者代码符合项目license要求</li>
+<li>贡献代码审核，定期识别合规问题，及时整改</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>HOW?
+<ul>
+<li>项目成员岗前合规培训</li>
+<li>基于商业诉求，明确项目license，贡献者协议等法务文档</li>
+<li>持续扫描识别license风险，及时清零</li>
+<li>发布前合规检查，确保风险清零</li>
+<li>社区运营过程中持续扫描识别并解决合规问题</li>
+</ul>
+</li>
+</ul>
+<h3 id="制定并配置项目法务文档项目license"><a class="header" href="#制定并配置项目法务文档项目license">制定并配置项目法务文档：项目License</a></h3>
+<p>License：规定了该项目所有用户所享有的权利及必须履行的义务，开源项目的业务团队根据自身业务目的，与企业的法务部共同明确项目license。</p>
+<p>如果要限制少，更多地选择宽松的许可证，比如BSD和Apache许可证，如果需要代码对外开源，或者履行更多地开源义务，可以选择比较严格一点的许可证，比如GPL或者MPL许可证。</p>
+<h3 id="制定并配置项目法务文档案例-某编译器开源license的选择"><a class="header" href="#制定并配置项目法务文档案例-某编译器开源license的选择">制定并配置项目法务文档：案例-某编译器开源License的选择</a></h3>
+<ul>
+<li>业务诉求：
+<ul>
+<li>代码开放，提供版权和专利免费许可，无强迫用户回馈诉求</li>
+<li>鼓励使用，无限制分裂诉求</li>
+<li>优先使用国产许可证</li>
+</ul>
+</li>
+<li>代码扫描结果：除了BSD代码外，无其他第三方许可证的代码，故所选许可证与BSD兼容即可</li>
+<li>推荐：国产木兰宽松许可证 </li>
+</ul>
+<h3 id="制定并配置项目法务文档示例-facebook-patents-license惹争议"><a class="header" href="#制定并配置项目法务文档示例-facebook-patents-license惹争议">制定并配置项目法务文档：示例-FaceBook Patents License惹争议</a></h3>
+<ul>
+<li>FaceBook React（ FB+PL 许可）
+<ul>
+<li>BSD-3 Clause：商业友好，无强制开源义务，仅需履行声明义务即可</li>
+<li>Facebook Patents license：“FaceBook保护主义”条款，若使用者对FaceBook发起专利诉讼，即使该专利与React无关，React对该使用者的授权也会被终止</li>
+</ul>
+</li>
+<li>2017 年 7 月，Apache 基金会主管兼法律事务副主席 Chris Mattmann 正式发表声明称：Facebook BSD+Patents license（ FB+PL ）已经正式被列入 “CategoryX” 列表，因此 Apache 项目中将不能够包含或依赖于 Facebook Patents license 的代码；而已经发布的代码，涉及 FB+PL 许可证的，需要在 8 月 31 号前完成替换</li>
+<li>Facebook BSD+Patents license 持续被众多开发者诟病声讨，2017 年 9 月，Facebook 表示后续将 React 等采用 FB+PL 许可的项目，改为 MIT 许可</li>
+</ul>
+<h3 id="制定并配置项目法务文档代码原创声明贡献者协议"><a class="header" href="#制定并配置项目法务文档代码原创声明贡献者协议">制定并配置项目法务文档：代码原创声明&amp;贡献者协议</a></h3>
+<ul>
+<li>代码原创声明：面向企业，所有参与开源代码编写的员工都必须签署。
+主要内容包括：
+<ul>
+<li>承诺个人开发的代码都为个人原创，若包含第三方知识产权的内容，或是公司专利，须如实向公司反馈，在获得批准后才能合入开源代码。</li>
+<li>若由于个人原因（如提供虚假信息，隐瞒信息等）导致项目开源后公司遭受侵权诉讼等损失，个人须承担相应责任，代码开发者对自己的代码负责。</li>
+</ul>
+</li>
+<li>贡献者协议：面向公司外部，所有参与社区代码贡献的贡献者必须签署。（可选，但建议推动签署）
+贡献者协议具体内容可向法务部提出需求，在企业的法务部支撑下拟定。
+主要内容包括不限于：
+<ul>
+<li>贡献者必须确保贡献内容有充分地授权，能够以项目 License 开源，或贡献内容 License 与项目 License 相兼容。</li>
+<li>若贡献内容包含第三方知识产权内容，须获取相应的授权，并在贡献时明确声明。</li>
+<li>若由于贡献者原因（如提供虚假信息，隐瞒信息等）导致项目遭受侵权诉讼等损失，贡献者必须承担相应责任。</li>
+</ul>
+</li>
+</ul>
+<h3 id="制定并配置项目法务文档版权声明及免责声明"><a class="header" href="#制定并配置项目法务文档版权声明及免责声明">制定并配置项目法务文档：版权声明及免责声明</a></h3>
+<p>企业权利声明及免责声明：针对企业享有版权的内容，须附上企业的权利声明与免责声明，以保护企业权利。声明包括企业原创文件和非企业原创文件两类</p>
+<ul>
+<li>企业原创文件，则在文件头附上企业的版权信息与免责声明，如下
+<ul>
+<li>企业版权信息，年份为代码新增年份，邮箱可以是项目运营统一邮箱，或该文件开发者邮箱，以便其他开发者或用户通过该邮箱进行提问或沟通</li>
+<li>License 及免责声明</li>
+</ul>
+</li>
+<li>非企业原创文件，但企业在其基础上进行了修改，则在文件头附上企业的版权信息，如下
+（免责声明一般在原文件 License 中会有声明，无需额外添加） 
+<ul>
+<li>保留原文件中的声明，不得更改或删除</li>
+<li>企业修改年份，可只写年份，也可写具体日期</li>
+<li>简要说明修改内容</li>
+<li>企业版权信息，邮箱同上文（可以是项目运营统一邮箱，或该文件owner邮箱）</li>
+</ul>
+</li>
+</ul>
+<h3 id="制定并配置项目法务文档案例-某编译器误改版权事件"><a class="header" href="#制定并配置项目法务文档案例-某编译器误改版权事件">制定并配置项目法务文档：案例-某编译器误改版权事件</a></h3>
+<p>某编译器版权声明修改遭热议</p>
+<ul>
+<li>某编译器开源前，使用版权信息生成脚本对自研代码文件生成企业版权信息，</li>
+<li>脚本运行范围误将third_party目录也覆盖在内，导致其中的文件版权也被修改，</li>
+<li>上网当天及被网友发现，在网络上引发热议，该项目于当天紧急整改后再次上线，</li>
+</ul>
+<h3 id="识别项目所有文件来源开源代码可能产生的风险"><a class="header" href="#识别项目所有文件来源开源代码可能产生的风险">识别项目所有文件来源：开源代码可能产生的风险</a></h3>
+<p>涉及第三方知识产权的开源代码可能产生以下三种风险：</p>
+<ul>
+<li>开源代码本身侵权，可能被潜在的权利人起诉和要求赔偿，甚至禁止该代码的使用，</li>
+<li>潜在权利人可能作为我司产品侵权的证据间接表明我司产品侵权，对我司业务造成潜在影响，</li>
+<li>社区成员或开源代码使用者使用侵权开源代码而产生损失，可能向我司主张权利并对我司声誉造成重要影响，</li>
+</ul>
+<h3 id="识别项目所有文件来源使用扫描工具确保可开源"><a class="header" href="#识别项目所有文件来源使用扫描工具确保可开源">识别项目所有文件来源：使用扫描工具确保可开源</a></h3>
+<p>通过某工具扫描项目全量文件（代码文件及二进制文件），明确所有文件来源，确保：</p>
+<ul>
+<li>开源代码包中的代码原则上必须由企业原创代码构成，不得包含来源不明的代码或二进制包，也不得包含未获得相应授权的开源代码以及版权标识、包括但不限于免费代码、开源代码或商业代码，若需要随项目一起发布，则须获得相应版权方许可。</li>
+<li>开源代码包中不得包含未经授权批准的第三方商标和商业秘密等，尤其避免包含开源特有特性代码，未经授权批准的第三方公司商标、标识、公司名、人名等敏感信息。</li>
+<li>若开源内容中包含企业专利，必须经过业务团队与法务部审核批准后方可开源。</li>
+<li>禁止在企业原创代码文件中嵌入其他开源软件代码片段。</li>
+</ul>
+<h3 id="识别清理license冲突检查与项目许可证是否兼容"><a class="header" href="#识别清理license冲突检查与项目许可证是否兼容">识别清理license冲突：检查与项目许可证是否兼容</a></h3>
+<p>不同开源License所规定的权利与义务不同，相互之间可能不能兼容，项目在发布前必须检查项目引入的所有开源软件License，确保其与项目许可证相兼容。</p>
+<ul>
+<li>通过扫描工具识别项目中所包含的所有开源软件License。</li>
+<li>判断这些License与项目License是否冲突，涉及具体冲突判断可向开源法务接口求助。</li>
+<li>对License冲突进行整改清理。
+对于冲突License整改的两种方式：
+<ul>
+<li>采用其他不冲突的开源软件替代</li>
+<li>自研重写替代：重写时应采取clean room方式，重写人员不得直接接触参考开源代码，更不得直接在参考代码基础上进行修改，只可以在了解参考代码的功能后独立写出实现代码，否则重写可能失败，无法规避非兼容许可证。</li>
+</ul>
+</li>
+</ul>
+<h3 id="遵从开源license履行相应义务声明义务"><a class="header" href="#遵从开源license履行相应义务声明义务">遵从开源License，履行相应义务：声明义务</a></h3>
+<p>若项目中集成了其他开源软件，项目在发布时也须遵从相应开源License，履行开源义务，否则也会导致侵权风险。由于开源项目代码天然开放，因此开源项目主要涉及的是声明义务。</p>
+<ul>
+<li>明确项目中所包含的所有非企业原创的开源软件（开源软件）。</li>
+<li>将第三方开源软件使用声明文件应放入开源软件包子目录中的“License”文件夹里命名为 Third Party Open Source Software Notice的文档中。附：Third Party Open Source Notice模板。</li>
+<li>保留所有开源软件文件中的版权及License声明，若企业在其基础上进行了修改，可在原文件声明内容的基础上增加企业的版权声明（针对修改部分），但不可删除原有开源声明。</li>
+</ul>
+<h3 id="管控后续合入代码符合license要求持续风险识别"><a class="header" href="#管控后续合入代码符合license要求持续风险识别">管控后续合入代码，符合license要求：持续风险识别</a></h3>
+<p>对于社区后续合入的代码，包括企业或其他贡献者贡献的代码，需要持续进行风险识别，避免引入与项目license冲突的代码：</p>
+<ul>
+<li>从法务角度：在社区运作规则中明确代码贡献合规要求，贡献者必须签署或同意《贡献者协议》，方能提交代码。</li>
+<li>从运作机制角度：
+<ul>
+<li>设立代码合入门禁，合入前必须通过门禁扫描，识别并确认无风险后方可合入。（当前相关工具正在开发准备中）</li>
+<li>定期对项目进行整体扫描，识别并及时处理发现的风险。</li>
+</ul>
+</li>
+</ul>
+<h2 id="参与已有开源项目的合法合规要求"><a class="header" href="#参与已有开源项目的合法合规要求">参与已有开源项目的合法合规要求</a></h2>
+<h3 id="开源前的需要考虑的合法合规事项"><a class="header" href="#开源前的需要考虑的合法合规事项">开源前的需要考虑的合法合规事项</a></h3>
+<ul>
+<li>了解并签署贡献者协议（视社区要求而定）：了解贡献者协议中对企业（贡献者）的约束。</li>
+<li>明确开源文件来源，确保可开源：明确贡献内容中所有代码、文档等文件的来源及版权，确保贡献内容的合法性。</li>
+<li>识别清理license冲突：识别贡献内容中所包含的所有开源License，整改确保与项目License不冲突。</li>
+<li>履行开源义务：根据贡献内容中包含的开源License，履行相应开源义务。</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="open-source-ecosystem-build-and-best-practices.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="open-source-security-and-risk-managment.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="open-source-ecosystem-build-and-best-practices.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="open-source-security-and-risk-managment.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </body>
+</html>

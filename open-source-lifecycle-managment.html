@@ -1,0 +1,267 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>开源生命周期管理 - 开源雨林 —— 开源通识课程</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="preface.html"><strong aria-hidden="true">1.</strong> 前言</a></li><li class="chapter-item expanded "><a href="open-source-culture-and-awareness.html"><strong aria-hidden="true">2.</strong> 开源文化与认知</a></li><li class="chapter-item expanded "><a href="community-rules-and-hidden-rules.html"><strong aria-hidden="true">3.</strong> 社区规则和潜规则</a></li><li class="chapter-item expanded "><a href="open-source-usage-and-best-practices.html"><strong aria-hidden="true">4.</strong> 开源使用规范及业界优秀实践</a></li><li class="chapter-item expanded "><a href="open-source-ecosystem-build-and-best-practices.html"><strong aria-hidden="true">5.</strong> 开源生态构建及业界优秀实践</a></li><li class="chapter-item expanded "><a href="open-source-compliance-and-risk-managment.html"><strong aria-hidden="true">6.</strong> 开源合规及其风险管理</a></li><li class="chapter-item expanded "><a href="open-source-security-and-risk-managment.html"><strong aria-hidden="true">7.</strong> 开源安全及其风险管理</a></li><li class="chapter-item expanded "><a href="open-source-lifecycle-managment.html" class="active"><strong aria-hidden="true">8.</strong> 开源生命周期管理</a></li><li class="chapter-item expanded "><a href="open-source-strategy-and-tactics.html"><strong aria-hidden="true">9.</strong> 企业开源的战略和战术</a></li><li class="chapter-item expanded "><a href="enterprise-strategy-and-bussiness-model.html"><strong aria-hidden="true">10.</strong> 开源与商业模式</a></li><li class="chapter-item expanded "><a href="best-practices-for-enterprise-open-source-governance.html"><strong aria-hidden="true">11.</strong> 开源使用优秀实践分享</a></li><li class="chapter-item expanded "><a href="best-practices-for-open-source-ecosystems.html"><strong aria-hidden="true">12.</strong> 开源生态优秀实践分享</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">开源雨林 —— 开源通识课程</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="开源生命周期管理"><a class="header" href="#开源生命周期管理">开源生命周期管理</a></h1>
+<ul>
+<li>
+<p>现代化软件开发生命周期管理
+生命周期角度，探讨如何持续构建高安全产品的研发能力</p>
+<ul>
+<li>Why：从客户问题、产业现状、企业竞争力三个视角看生命周期面临的挑战，转变对生命周期的意识</li>
+<li>What：优选解决优生问题，生命周期解决死的问题。从合同/产品/硬件/软件版本/平台/工具/开源软件各层识别挑战</li>
+<li>How：以某产品实际面临问题为实战，探讨如何做生命周期管理，谁来做，怎么做？</li>
+</ul>
+</li>
+</ul>
+<h2 id="认识软件版本生命周期所面临的挑战转换意识"><a class="header" href="#认识软件版本生命周期所面临的挑战转换意识">认识软件版本生命周期所面临的挑战，转换意识</a></h2>
+<h3 id="发现身边的安全隐患"><a class="header" href="#发现身边的安全隐患">发现身边的安全隐患</a></h3>
+<p>假如明天产品发布，突然收到100个漏洞单，在这种情境下，你怎么处理？</p>
+<ul>
+<li>先发布？</li>
+<li>发布之后怎么解决或者是需不需要解决？</li>
+<li>客户是否认可？</li>
+</ul>
+<h3 id="客户需要的是持续系统的安全"><a class="header" href="#客户需要的是持续系统的安全">客户需要的是持续、系统的安全</a></h3>
+<table><thead><tr><th>产品代码质量问题</th><th style="text-align: center">从安全视角重新理解</th></tr></thead><tbody>
+<tr><td>来源可靠</td><td style="text-align: center">用的是真的</td></tr>
+<tr><td>编码安全规范：1.自研2.开源软件整改</td><td style="text-align: center">所有代码需要代码级安全</td></tr>
+<tr><td>1.片段使用2.老软件3.一个开源软件多版本4.多平台产生多副本5.多平台自身副本</td><td style="text-align: center">扩大了攻击面</td></tr>
+<tr><td>组件生命周期覆盖软件版本生命周期</td><td style="text-align: center">客户实际想要的是？</td></tr>
+<tr><td>所有公开开源软件漏洞都在代码层面修复</td><td style="text-align: center">客户实际想要的是？</td></tr>
+<tr><td>现网升级</td><td style="text-align: center">客户实际想要的是？</td></tr>
+</tbody></table>
+<h3 id="产业现状开源社区既是创新沃土又易被黑客利用"><a class="header" href="#产业现状开源社区既是创新沃土又易被黑客利用">产业现状：开源社区既是创新沃土，又易被黑客利用</a></h3>
+<p>整个信息行业占80%的代码都使用到了开源软件，一旦发生漏洞，像openssl这种高危漏洞，系统很容易被攻破。所以从开源软件整个安全观来讲，其实是要上升到我们整个产品的安全观来看。这就是为什么开源软件的生命周期管理实际上升到一个维度，其实是产品的生命周期管理的个问题。</p>
+<ul>
+<li>开源社区是创新沃土，广泛应用于产品</li>
+<li>开源的漏洞易被黑客利用，漏洞一旦公开必须快速在产品修复</li>
+</ul>
+<h3 id="企业竞争力与现代软件开发的核心矛盾13--分与合的矛盾"><a class="header" href="#企业竞争力与现代软件开发的核心矛盾13--分与合的矛盾">企业竞争力与现代软件开发的核心矛盾（1/3）- 分与合的矛盾</a></h3>
+<p>问题：把所有的安全问题都解决了，所有的合规的问题也解决了，但会导致花大量的精力、时间和人力去维护、修复这些问题，就没有时间没有人力去做竞争力的问题，怎么解决呢？实际上这就是现代软件开发当中的一个核心的矛盾，这就是一个分与合的一个矛盾。</p>
+<ul>
+<li>竞争力：分布式交付模式、大平台战略大幅提升产品线质量/效率/竞争力</li>
+<li>挑战：7层平台嵌套，不同时期立项的平台引入同一款开源软件的当期版本造成最终产品中同一款开源软件版本多
+<ul>
+<li>不归一：老平台一直在网使用，导致单产品同时使用一款软件的不同版本</li>
+<li>版本老：考虑到稳定性因素，部件年龄老化，采用延长维保覆盖产品生命周期</li>
+<li>多副本：基于开源修改，片段代码散落在平台代码中</li>
+</ul>
+</li>
+</ul>
+<h3 id="产品竞争力与现代软件开发的核心矛盾23--稳定与升级的矛盾"><a class="header" href="#产品竞争力与现代软件开发的核心矛盾23--稳定与升级的矛盾">产品竞争力与现代软件开发的核心矛盾（2/3）- 稳定与升级的矛盾</a></h3>
+<ul>
+<li>竞争力：稳定性可靠性，产品不愿意升级平台，客户不愿意升级产品</li>
+<li>挑战：升级新版本才能规避漏洞</li>
+<li>建议：竞争力跟产品安全、产品合规是一个严峻的挑战。例如，某一个公司，要修复一个漏洞，安全部门观察到现在某一个开源软件包含了一个漏洞，请产品去修复这个漏洞，安全响应部门它已经将所有的漏洞包括它的行为都已经归档了。但是产品在过程中是否修复了呢？产品修复肯定是在新版本的软件包里修复的，或者是给一个新版本的补丁。从企业内部来说有可能产品确实是修复了，也打了包了，但是到客户，到我们的销售部门，到了维护团队，整个修复的流程是否真的都做到了？如果没有这样的一个跟踪机制的话，实际上是不清楚的，因为涉及到中间的环节太多了。代码级安全不是说在企业的研发的阶段代码级安全，而是要在客户那里，包括提交的二进制提代码，只要给客户了，所有的程序都要做到代码级安全。假如说有些产品因为某种原因不停迭代，新版本和老版本都在老的硬件上，到时候会不会因为要兼容老的硬件，所以某些软件就不能升级？这种就是一个新的兼容性的一个挑战。</li>
+</ul>
+<h3 id="产品竞争力与现代软件开发的核心矛盾33--长生不老的矛盾"><a class="header" href="#产品竞争力与现代软件开发的核心矛盾33--长生不老的矛盾">产品竞争力与现代软件开发的核心矛盾（3/3）- 长生&amp;不老的矛盾</a></h3>
+<p>产品合同约束的时候，可能给客户约束了一个时间非常长的一个合同，可能10年、15年。但是实际上软件的升级维护是有期限的。有些开源软件可能在社区就撑不过四年、五年，到社区说软件停止维护了，再去升级，就不现实了。所以有一个问题，就是产品合同是不是一定要这么长的时维护时间？是否有更灵活的升级或者更新的一个机制？这么多问题，这么多挑战，是否有一些新的看法呢？大家是否认为，为了保障产品的竞争力，安全也好，合规也好，问题的修复也好，是否可以忽略呢？我们需不需要从一个新的安全的角度去理解这个问题？</p>
+<h2 id="探讨如何持续构建高安全产品的研发能力"><a class="header" href="#探讨如何持续构建高安全产品的研发能力">探讨如何持续构建高安全产品的研发能力</a></h2>
+<h3 id="管生优选"><a class="header" href="#管生优选">管生：优选</a></h3>
+<p>开软件约束产品的生命周期。前面提到了产品在设计的时候要选择相应的开源软件，一定是按某些规则来进行的优选。比如我们需要通过它是否合法合规，是否有网络安全漏洞，它的兼容性怎么样，社区的活跃度怎么样，从这些维度来去管理它的优选的情况。建议在不同产品去制定相应的规则，使开源软件能够被管控，特别是选用了优选的软件，是要进行独立的管控的。</p>
+<h3 id="开源软件技术组织和产品线的矩阵管理"><a class="header" href="#开源软件技术组织和产品线的矩阵管理">开源软件技术组织和产品线的矩阵管理</a></h3>
+<p>成立软件选型专家组织，集中把控软件选型：
+在做优选的时候，要有相应的开源软件的一些技术组织，对开源软件来进行管控。比如说对软件的分类，专家对软件进行分类，按照分类，专家评估，评估报告会影响产品引入开源软件的优先级。在产品经理团队、架构师团队里，应该也有相应的专家能对产品做分层的管理，把开源软件的优选管控起来，只有这样形成一个矩阵化的管理，才有相应的保障。</p>
+<h3 id="管死退出机制-挑战层层嵌套带来的配套复杂性"><a class="header" href="#管死退出机制-挑战层层嵌套带来的配套复杂性">管死：退出机制 挑战：层层嵌套带来的配套复杂性</a></h3>
+<p>从产品的生命周期开始就包含有很多很多内容，可能涉及硬件开发，也有可能是软件云平台类的软件，应用类的软件，或者是某些驱动，构建工具的软件，这些都需要有生命周期的规划。软件的生命周期一定要包含上层软件的生命周期，也就是说平台软件也好，驱动也好，它的生命周期一定要包含上层应用的生命周期。</p>
+<h3 id="产品各层级生命周期可维护"><a class="header" href="#产品各层级生命周期可维护">产品各层级生命周期可维护</a></h3>
+<p>制定产品生命周期的时候，一定要注意生命周期可维护。产品硬件，软件它都有生命周期的模型的约束，产品是要不断迭代演进的，如果某一个产品版本一直用下去，肯定会出现网络安全问题的。硬件也是有生命周期的，因为硬件很难去被替换，所以我们在硬件设计的时候要预留相应的空间，使得我们的软件能够进行升级，不能因为硬件而不允许升级，相应的产品的软件平台，工具、芯片、软件，同时能够保证升级，不会被上一层和下一层的软件生命周期所约束。</p>
+<h3 id="生命周期管理长效机制总体策略"><a class="header" href="#生命周期管理长效机制总体策略">生命周期管理长效机制总体策略</a></h3>
+<ul>
+<li>对外：完善供应商、企业、客户三个对象的生命周期规则，确保产业链生命周期不脱节</li>
+<li>对内：完善各对象的配套关系，建立完整的产品树，确保生命周期风险可视 &amp; 可控</li>
+</ul>
+<h3 id="生命周期优化必须解开两个扣产品必有死期合同必有约束"><a class="header" href="#生命周期优化必须解开两个扣产品必有死期合同必有约束">生命周期优化必须解开两个扣：产品必有死期，合同必有约束</a></h3>
+<p>生命周期的管理总结：产品它必有死期，产品无限制的固定的维护下去，一定有死亡或者是退出生命周期的那一天。也就是说软件和硬件要不停的去迭代，只有迭代才能够保证软件当中的安全问题、合规问题能够被解决掉。从这点来说，我们跟客户谈合同的时候，合同也要有一定的约束，不能说这个合同就是无限制，对某一个老的硬件或产品一直维护下去，这是不切实际的，总有一天会有大量的安全问题，产品不可用，带来商业上的一个损损害。从研发的角度来说，要持续的产品和研发能力，保证所有的东西都是可以维护的，也是能够易于被升级的。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="open-source-security-and-risk-managment.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="open-source-strategy-and-tactics.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="open-source-security-and-risk-managment.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="open-source-strategy-and-tactics.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </body>
+</html>

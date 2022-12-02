@@ -9,6 +9,6 @@
 - [开源安全及其风险管理](./open-source-security-and-risk-managment.md)
 - [开源生命周期管理](./open-source-lifecycle-managment.md)
 - [企业开源的战略和战术](./open-source-strategy-and-tactics.md)
-- [开源与商业模式](./enterprise-strategy-and-bussiness-model.md)
+- [开源与商业模式](./enterprise-strategy-and-business-model.md)
 - [开源使用优秀实践分享](./best-practices-for-enterprise-open-source-governance.md)
 - [开源生态优秀实践分享](./best-practices-for-open-source-ecosystems.md)

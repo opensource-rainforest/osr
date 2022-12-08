@@ -162,7 +162,7 @@
 
 ### 3、何为社区
 
-![img](https://openeuler.feishu.cn/space/api/box/stream/download/asynccode/?code=ZGU0ZThmZjAyMjY5ZWY3OTdiMTcxZTM3OGM3OTU5YjlfZjNpTGtnNThTdm83ZkFTOGxoRUFRUW1RUW9ON3dCWDlfVG9rZW46Ym94Y25lc3dIYWkxN09QcGY2dVFDN3Q4VDBjXzE2NzAzMTc4NDE6MTY3MDMyMTQ0MV9WNA)
+![](https://i.imgur.com/MwVHlWi.png)
 
 最早的时候，一群志同道合的人组成一个社区，来共同创造一些东西，然后逐渐完善这个作品，这个作品可能是一个开源项目的一个版本，版本发布之后，吸引了更多对这个项目感兴趣的人来到这个社区，他们可能只是看看，也可能是试用，甚至有可能会参与贡献，总之社区的人越来越多，原来比较少的一些规则，或者不成文的规定、潜规则就不太够用，于是大家开始一起完善这些规则，进一步明确志向：之所以要定这些规则，之所以大家团结起来一起做事情，那我们的志向是什么？我们的目标是什么？在这个过程当中，通过不断的凝聚共识，社区变得越来越成熟，才会越来越健康地发展下去。
 
@@ -254,7 +254,7 @@ Linus Torvalds在1991年发了一个邮件：我在做一个开源的操作系�
 
 ### 2、个人成长的正循环
 
-![img](https://openeuler.feishu.cn/space/api/box/stream/download/asynccode/?code=MDEyN2M3YzBmZmNiZGMxOWZkNjBlN2E2YjBlMzc5MzJfTU9ZSVlnblR5MHZnZVpVY054ZkNOcDRLRDR1cnhSQnJfVG9rZW46Ym94Y25aaXVkcjM2dlNVdFdlN2dDbTA1eEhlXzE2NzAzMTc5NTM6MTY3MDMyMTU1M19WNA)
+![](https://i.imgur.com/OD7sSIO.png)
 
 1）创造：在创造的过程中，产生真实的练习目标。
 

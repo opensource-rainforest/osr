@@ -279,14 +279,14 @@
 
 #### 1）国际开源领头羊企业的实践
 
-![](https://i.imgur.com/ou2iEhZ.png)
+![](https://i.imgur.com/dByJc0X.png)
 
 
 ##### ① Google：实现生态价值闭环   
 
 i. 开源生态底座（比如 Android），闭源核心能力（比如 Google Mobile Service: GMS），自营基础设施服务（比如 Google Computing Platform: GCP），自营消费级硬件（比如手机）与服务（比如 YouTube、Gmail、广告等），第三方服务、硬件与合作伙伴   
 
-ii. Android 形成生态粘性后，透过 GMS 认证 进行价值收割和管控
+ii. Android 形成生态粘性后，透过 GMS 认证 进行价值变现和管控
 
 ##### ② Intel：将开源社区作为重要的产业控制点   
 
@@ -300,7 +300,7 @@ i. 成立微软开放技术子公司（2012-2015）；开源管理办公室 (OSP
 
 ii. VS Code 开源 (2015)；收购 GitHub（2018）
 
-##### ④ Amazon：从开源收割者到新领域贡献者   
+##### ④ Amazon：从开源变现者到新领域贡献者   
 
 i. AWS 将许多广受用户采用的第三方解决方案予以云服务化，并提供一些增值服务，如计费、监控，以及最后一里的工具，文档等来优化易用性及用户体验。如此吸引了大量的中小企业与部门级客户
 

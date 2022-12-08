@@ -279,7 +279,7 @@
 
 #### 1）国际开源领头羊企业的实践
 
-![](https://i.imgur.com/ou2iEhZ.png)
+![](https://i.imgur.com/dByJc0X.png)
 
 
 ##### ① Google：实现生态价值闭环   

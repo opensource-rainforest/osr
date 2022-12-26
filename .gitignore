@@ -11,3 +11,4 @@ Cargo.lock
 
 # Book
 /book/*
+src/开源生命周期管理.md

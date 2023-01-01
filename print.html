@@ -2937,233 +2937,484 @@ void GetUart (void)
 <li>设立代码合入门禁，合入前必须通过门禁扫描，识别并确认无风险后方可合入。</li>
 <li>定期对项目进行整体扫描，识别并及时处理发现的风险。</li>
 </ul>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="开源安全及其风险管理"><a class="header" href="#开源安全及其风险管理">开源安全及其风险管理</a></h1>
-<h2 id="开源安全现状和挑战"><a class="header" href="#开源安全现状和挑战">开源安全现状和挑战</a></h2>
-<h3 id="重点挑战--开源组件选型漏洞提前感知和修复未公开漏洞发掘韧性架构"><a class="header" href="#重点挑战--开源组件选型漏洞提前感知和修复未公开漏洞发掘韧性架构">重点挑战  开源组件选型、漏洞提前感知和修复、未公开漏洞发掘、韧性架构</a></h3>
-<ul>
-<li>开源选型和质量管控：当前选型规则较松，缺乏选型质量把控；存在安全问题，一些问题可能带来隐患和质疑。
-<ul>
-<li>挑战：开源软件安全问题排查工作量大，目前扫描工具效果不佳，存在大量误报。
-部分典型问题：
-<ul>
-<li>明文密钥问题</li>
-<li>不安全随机数问题</li>
-<li>包含大量未公开接口和公网地址</li>
-<li>使用不安全协议和算法</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>漏洞管理：上千款开源软件已知漏洞管理是个大工程，攻击者常用的手段是使用未修复的已知漏洞及其变种来攻击目标。
-<ul>
-<li>挑战：
-<ul>
-<li>明文密钥问题</li>
-<li>无CVE警示的漏洞修复</li>
-<li>协议类、架构类漏洞修复成本高</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>未公开漏洞：攻击者很可能使用开源软件的未公开漏洞（0-day）攻击，如何减少0-day漏洞攻击影响是业界难题。
-<ul>
-<li>每年数十例0-day攻击被发现，近年有上升势态。0-day攻击的防范一直是业界挑战，需要在漏洞发现和韧性架构等方面综合投入</li>
-</ul>
-</li>
-</ul>
-<h3 id="开源软件漏洞数逐年增加安全形势日益严峻"><a class="header" href="#开源软件漏洞数逐年增加安全形势日益严峻">开源软件漏洞数逐年增加，安全形势日益严峻</a></h3>
-<p>从2016年到2020年，开源软件包含的安全问题是逐年增加，16年每一个开源软件包含的漏洞问题平均是84个，到2020年，增长到了528个，5年259%，增长了2.5倍。越来越频繁使用开源软件，例如云计算或者AI，80%以上是使用开源软件技术来搭建系统的，安全方面就非常脆弱，这就需要我们有相应完整的流程，完备的技术和方法来保护开源软件的安全，尽量把安全风险降低到可控的范围内。</p>
-<p>具体参考SYNOPAYS报告：https://www.synopsys.com/software-integrity/resources/analyst-reports/open-source-security-risk-analysis.html?intcmp=sig-blog-os-rightrail</p>
-<h3 id="网络安全-log4shell漏洞影响面之广"><a class="header" href="#网络安全-log4shell漏洞影响面之广">网络安全： Log4Shell漏洞影响面之广！</a></h3>
-<ul>
-<li>案例：2021年11月24日在Web服务器软件阿帕奇（Apache）下的开源日志组件Log4j 2.x内发现漏洞，这个后来编号为 CVE-2021-4428的漏洞，花名为Log4Shell。这一漏洞的存在，可以让网络攻击者无需密码就能访问网络服务器。网络安全管理公司Cloudflare首席安全官乔·沙利文（Joe Sullivan）表示，这一漏洞允许恶意攻击者“远程执行代码”，以获取对其他系统的访问，鉴于Log4j软件被广泛使用，这可能是迄今为止“最大的漏洞”。</li>
-<li>启示：
-<ul>
-<li>识别产品中正在使用关键的开源项目</li>
-<li>大规模使用开源软件的公司对开源软件要谨慎选择、持续维护</li>
-</ul>
-</li>
-</ul>
-<h2 id="业界开源安全实践洞察"><a class="header" href="#业界开源安全实践洞察">业界开源安全实践洞察</a></h2>
-<h3 id="开源社区安全主流社区安全能力建设从突破单点安全技术逐步发展到打造安全基础设施供应链安全整体安全架构的系统化防护体系"><a class="header" href="#开源社区安全主流社区安全能力建设从突破单点安全技术逐步发展到打造安全基础设施供应链安全整体安全架构的系统化防护体系">开源社区安全：主流社区安全能力建设从突破单点安全技术，逐步发展到打造安全基础设施、供应链安全、整体安全架构的系统化防护体系</a></h3>
-<ul>
-<li>
-<p>业界主流社区从单点安全特性逐步向整体安全架构、供应链安全和安全基础设施等系统化建设方向发展。</p>
-</li>
-<li>
-<p>案例：Google在发布AOSP开源项目的时候，更多的使用的是传统的Linux安全能力。随着对安全的认知及安全观加强之后，开始创造一些原创的安全能力。</p>
-<ul>
-<li>Linux：项目诞生（1991）--- 支持SELinux（2003）--- Syzkaller Fuzz关键（2016）----KSPP安全项目（2017）--- 任命供应链（2020）--- Sigstore签名服务（2021）</li>
-<li>ASOP：项目诞生（2008) --- 漏洞致谢（2009）--- 支持SEAndroid（2014）---- 原生支持Fuzzing（2017)--- 奖励开源软件安全研究（2019）</li>
-</ul>
-<div class="table-wrapper"><table><thead><tr><th>分类</th><th style="text-align: center">开源社区可借鉴点</th></tr></thead><tbody>
-<tr><td>安全架构</td><td style="text-align: center">单点安全技术---- 整体安全架构</td></tr>
-<tr><td>供应链安全</td><td style="text-align: center">自身安全----上下游供应链安全</td></tr>
-<tr><td>安全基础设施(漏洞挖掘)</td><td style="text-align: center">单个漏洞奖励 ----漏洞挖掘等基础设施</td></tr>
-<tr><td>安全基础设施(安全开发)</td><td style="text-align: center">单一构建工具支持 ----安全开发基础设施支持</td></tr>
+<div style="break-before: page; page-break-before: always;"></div><h3 id="1开源项目数量爆发式增长"><a class="header" href="#1开源项目数量爆发式增长">1、开源项目数量爆发式增长**</a></h3>
+<p>现在使用开源的人越来越多，开源软件越来越多，开源生态发展越来越迅速，开源成为构建企业信息技术重要底座，是数字基础设施的存在。从全球来看，开源项目数量呈现爆发式增长，截至 2020 年 GitHub 托管仓库已超过 2 亿个，2020 年新增仓库 6,000 万个；另外 2021 年 Gitee 平台上开源项目与 2020 年相比增长比例为 33%，达到了 2,000万，由此可知，开源项目的数量增长极为迅猛。</p>
+<h3 id="2企业逐渐重视对外开源贡献"><a class="header" href="#2企业逐渐重视对外开源贡献"><strong>2、企业逐渐重视对外开源贡献</strong></a></h3>
+<p>从开源贡献角度，根据往年的数据，企业逐渐重视开源贡献，根据 OSCI 公布的 2022年 4 月的全球开源厂商 GitHub 开源贡献排名，华为、腾讯、阿里分别位列 12、14、16 位。</p>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: left"><strong>开源厂商</strong></th><th style="text-align: left"><strong>活跃开发人数</strong></th><th style="text-align: left"><strong>参与社区数量</strong></th></tr></thead><tbody>
+<tr><td style="text-align: left">华为</td><td style="text-align: left">547</td><td style="text-align: left">1,473</td></tr>
+<tr><td style="text-align: left">腾讯</td><td style="text-align: left">465</td><td style="text-align: left">1,642</td></tr>
+<tr><td style="text-align: left">阿里</td><td style="text-align: left">381</td><td style="text-align: left">1,130</td></tr>
 </tbody></table>
-</div></li>
-<li>
-<p>围绕开源件健康度和依赖度评估、漏洞感知与修复等系统化建设，是供应链安全发展的重点。</p>
+</div>
+<h3 id=""><a class="header" href="#"></a></h3>
+<h3 id="3企业开源软件应用比例逐年提升"><a class="header" href="#3企业开源软件应用比例逐年提升"><strong>3、企业开源软件应用比例逐年提升</strong></a></h3>
+<p>根据 BlackDuck《2022 开源安全与风险分析报告》显示，2021 年全球企业应用开源软件的比例已经达到 78%，与 2018 年相比增加 30%，且四年来开源软件持续增加。</p>
+<p>根据中国信通院调查显示，2021 年我国已经使用开源技术的企业占比为 88.2%，暂未计划使用开源技术的企业占比为 2.1%。现在写代码的企业基本上已经消失了，大家都习惯使用开源软件或开源组件这种形式。</p>
+<h3 id="4开源安全现状"><a class="header" href="#4开源安全现状"><strong>4、开源安全现状</strong></a></h3>
+<h4 id="1开源软件漏洞数逐年增加安全形势日益严峻"><a class="header" href="#1开源软件漏洞数逐年增加安全形势日益严峻">1）开源软件漏洞数逐年增加，安全形势日益严峻</a></h4>
+<p><img src="https://i.imgur.com/x1i8RNv.png" alt="" /></p>
+<p>来源：https://www.synopsys.com/content/dam/synopsys/sig-assets/reports/rep-ossra-2022.pdf</p>
+<p>近年来，大约有 78% 的开源软件已应用在企业中，其中大约 81% 的开源软件至少含有一个安全漏洞，而在近两年，超过 88% 的开源项目未被维护，再往前统计，近四年间，超过 85% 的开源项目未被维护，当然也会存在一些开源项目没有 license，或者 有 license 冲突的情况，因此对整个企业用户来说，使用开源软件本质上降低可开发的成本，也就是减少了开源里常说的 “重复造轮子” 的工作量，但实际上开源软件在安全方面存在较大风险：首先社区的贡献者不一定有安全的意识，很多人考虑的是如何实现功能；其次就是并不是每一个 PR 的合入，都会有安全专家进行审视。</p>
+<h4 id="2nvd-公布的漏洞中开源漏洞比例较高"><a class="header" href="#2nvd-公布的漏洞中开源漏洞比例较高">2）NVD 公布的漏洞中开源漏洞比例较高</a></h4>
+<p><img src="https://i.imgur.com/4WgpT1C.png" alt="" /></p>
+<p>数据来源于 NVD（国家漏洞库）：</p>
 <ul>
-<li>开源软件存在的安全薄弱点：
+<li>业界 NVD（美国国家漏洞库）公布了 54,256 个漏洞；</li>
+<li>约 88% 的网络问题来源于非自研软件，外部客户对非自研软件的网络安全高度重视；</li>
+<li>开源漏洞在第三方中占 66%，由于开源软件漏洞任何人都可见，更容易被针对性攻击。</li>
+</ul>
+<h4 id="3漏洞管理以及未公开漏洞发掘存在较大挑战"><a class="header" href="#3漏洞管理以及未公开漏洞发掘存在较大挑战">3）漏洞管理以及未公开漏洞发掘存在较大挑战</a></h4>
+<h5 id="①-漏洞管理"><a class="header" href="#①-漏洞管理">① 漏洞管理：</a></h5>
+<p>上千款开源软件中已知漏洞的管理是个大工程，攻击者常用的手段是使用未修复的已知漏洞及其变种来攻击目标。</p>
 <ul>
-<li>缺少安全Metadata（缺乏文档、LICENSE、反馈渠道、维护状况等）</li>
+<li>全量漏洞感知能力、应急响应能力和危机应对能力</li>
+<li>无 CVE（Common Vulnerabilities and Exposures 通用漏洞披露）警示的漏洞修复，例如开源社区当做 bug 或无意修复的漏洞，无 CVE 警示</li>
+<li>协议类、架构类漏洞修复成本高。越早发现漏洞，成本越低。</li>
+</ul>
+<h5 id="②-未公开漏洞"><a class="header" href="#②-未公开漏洞">② 未公开漏洞：</a></h5>
+<p>攻击者很可能使用开源软件的未公开漏洞（0-day）攻击，如何减少 0-day 漏洞攻击影响是业界难题。</p>
+<ul>
+<li>每年数十例 0-day 攻击被发现，近年有上升势态。0-day 攻击的防范一直是业界挑战，需要在漏洞发现和韧性架构等方面综合投入。</li>
+</ul>
+<p><img src="https://i.imgur.com/bRTFHTX.png" alt="" /></p>
+<h4 id="4基础软件面临的安全影响"><a class="header" href="#4基础软件面临的安全影响">4）基础软件面临的安全影响</a></h4>
+<h5 id="①-os-相关"><a class="header" href="#①-os-相关">① OS 相关</a></h5>
+<p>2020 年 12 月 8 日 CentOS 策略变更，基础软件安全问题凸显</p>
+<ul>
+<li>原本 CentOS 是RHEL 的“复制”，具备完整的可商用能力</li>
+<li>后续 CentOS 版本不再适合商用生产部署，行业客户及 OSV 业务连续性面临风险</li>
+</ul>
+<p><img src="https://i.imgur.com/CppX4xa.png" alt="" /></p>
+<p>“CentOS 停服”导致整个产业链需要重新选择操作系统技术路线</p>
+<ul>
+<li>不再提供补丁更新，现有业务随时面临宕机和安全风险，无法及时恢复</li>
+<li>不再支持新的软硬件，新部署硬件只能采购付费 RHEL</li>
+</ul>
+<p><strong>前车之鉴</strong>： Win XP 停服，高危漏洞不再修复，导致勒索病毒侵蚀了全球数十万台电脑，100 多个国家受到病毒影响。</p>
+<h5 id="②-db-相关"><a class="header" href="#②-db-相关">② DB 相关</a></h5>
+<p><img src="https://i.imgur.com/rXBkasK.png" alt="" /></p>
+<p>MySQL 5.7 版本计划 2023 年 10 月 EOX，漏洞不再修复，现网存量 5.7 及之前版本的安全保障成为难题。</p>
+<h2 id="二开源安全已经成为企业全球化挑战"><a class="header" href="#二开源安全已经成为企业全球化挑战">二、开源安全已经成为企业全球化挑战</a></h2>
+<p>众所周知，开源是全球化的产物，一旦出现安全问题，其影响范围将波及全世界。</p>
+<h3 id="1开源安全分类梳理"><a class="header" href="#1开源安全分类梳理">1、开源安全分类梳理</a></h3>
+<h4 id="1开源安全风险成为开源首要关注的风险点"><a class="header" href="#1开源安全风险成为开源首要关注的风险点">1）开源安全风险成为开源首要关注的风险点</a></h4>
+<p>根据 BlackDuck《2022 开源安全与风险分析报告》显示，87% 的代码库至少含有一个漏洞，漏洞含有比例逐年增高（近 4 年），49% 的已审核代码库包含高风险漏洞。</p>
+<h4 id="2开源安全风险分类"><a class="header" href="#2开源安全风险分类">2）开源安全风险分类</a></h4>
+<h5 id="①-开源漏洞风险"><a class="header" href="#①-开源漏洞风险">① 开源漏洞风险</a></h5>
+<p>开源漏洞风险是指开源软件、硬件、软件、协议的具体实现或系统安全策略上存在的缺陷，从而可以使攻击者能够在未授权的情况下访问或破坏系统。近些年以 Apache Log4j 等一系列开源漏洞爆发，导致全球范围内安全攻击事件频发，因受影响的信息系统遍布全球基础设施，轻则影响网络，重则影响国家基础设施安全，影响人们衣食住行正常运转。</p>
+<p><strong>案例一：Apache Log4j2 漏洞影响全球 70% 的网络系统</strong></p>
+<p>Apache Log4j2 于 2021 年 12 月爆发漏洞，该漏洞编号为 CVE-2021-44228，CVSS 评分为 10.0分（最高分），划分为严重漏洞，这意味着利用 Log4j 漏洞能完全攻破系统，典型的结果是攻击者完全控制一个系统，包括操作系统层的管理或者“根”权限。</p>
+<p>根据统计 Java 现存日志框架在 Github 上的关注量来看：Log4j2 的关注量排名第三，Apache Log4j2 漏洞影响全球 70% 的网络系统；</p>
+<p>该漏洞影响 log4j-core JAR 文件，Log4j2 对每条日志通过消息工厂 (MessageFactory) 创建消息 (Message) 对象，然后创建处理事件 (event)，将消息 (MessageFactory) 加入到处理事件 (event) 中对消息进行处理。在消息处理过程中，log4j2 的 format 方法 (函数) 会判断组件是否启用了 lookup 方法，如果开启了，log4j2 组件就会读取日志消息中的 ${} 关键词，然后将 ${} 关键词中的内容传递给 lookup 方法。最终 lookup 方法会调用 JndiLookup 中 Lookup 方法；从远程拉取攻击 Payload；造成远程代码执行漏洞。</p>
+<p><img src="https://i.imgur.com/UGzmfkh.png" alt="" /></p>
+<p><strong>漏洞根因</strong>：在 Apache Log4j 2.0-2.14.1 版本中（不含 2.12.2），JNDI 功能可能在配置文件、日志信息和一些参数中可能存在对 LDAP 和其他 JNDI 协议保护不足的问题。攻击者如果可以控制日志信息或参数则可能导致通过 LDAP 服务器执行任意代码。</p>
+<p><strong>漏洞原理（JNDI 注入）</strong>：JNDI 支持远程下载 class 文件来加载对象， Log4j 在使用 JNDI 时对远程地址和 class 未做限制，当程序使用 log4j 打印用户输入的时候，攻击者便可以利用此漏洞给服务端植入任意代码进行攻击。</p>
+<p>在漏洞爆发之后，中、美两国都做了一些响应，我国工信部做了具体的发文，美国政府也做出具体指示。</p>
+<p>（<strong>彭博社</strong>）——据一位白宫政府官员称，白宫要求主要软件公司和开发商与他们合作，以提高开源软件的安全性。源于流行的开源 Apache 软件中的一个漏洞被披露，网络安全官员将其描述为近期最严重的漏洞之一。</p>
+<p>该官员说，在周四的一封信中，国家安全顾问杰克-沙利文邀请软件行业的主要参与者讨论提高开源软件安全性的举措。这项工作 2022 年 1 月份由负责网络与新技术的副国家安全顾问 Anne Neuberger 主持为期一天的讨论开始。</p>
+<p><strong>启示</strong>：识别产品中正在使用关键的开源项目；大规模使用开源软件的公司对开源软件要谨慎选择、持续维护。勿在浮沙筑高台。</p>
+<p>a、开源软件安全问题需要高度重视</p>
+<ul>
+<li>开源软件应用广泛且不可避免</li>
+<li>很多场景缺乏软件的安全责任主体</li>
+</ul>
+<p>b、基础软件安全可信更刻不容缓</p>
+<ul>
+<li>相比应用软件，OS、DB 等基础软件安全影响更大</li>
+<li>OS、DB 软件更新周期长，安全任务要求高</li>
+</ul>
+<p>c、开源软件安全风险需要从多方面分析</p>
+<ul>
+<li>社区、代码管理、开发团队</li>
+<li>标准、规范、政策</li>
+<li>安全可信标准</li>
+</ul>
+<h5 id="②-开源后门植入风险"><a class="header" href="#②-开源后门植入风险">② 开源后门植入风险</a></h5>
+<p>这类攻击是将恶意代码直接注入到开源项目的存储库中，攻击方式包括:</p>
+<ul>
+<li>从项目维护人员那里窃取凭证；</li>
+<li>在公共存储库中发布项目新版本；</li>
+<li>向包含恶意代码的项目中提供 pull requests；</li>
+<li>篡改开源开发人员工具，将恶意代码注入下游应用程序。这类攻击方法一般是在上游“设置陷阱”，然后通过供应链将漏洞植入到数千家企业的代码库中，向下游发起攻击。SolarWinds 后门攻击事件和美国明尼苏达大学 (UMN) 为开源 Linux 项目提交后门代码，为典型开源后门植入类事件，此类风险为被动开源安全风险，后门植入隐蔽且不自知，可造成个人、企业和国家通过开源后门植入代码被监控，严重威胁信息安全。</li>
+</ul>
+<p><strong>案例二：SolarWinds 后门攻击事件波及全球重要科技发达地区的敏感机构</strong></p>
+<ul>
+<li>事件时间线：2020 年 12 月 13 日，美国网络安全公司 FireEye 发布分析报告称，SolarWinds 旗下的 Orion 基础设施管理平台的发布环境遭到黑客组织入侵;</li>
+<li>影响分析：在全球多个地区检测到攻击活动，主要针对北美、欧洲、亚洲和中东的一些政府、咨询、技术公司。</li>
+<li>攻击手段：黑客对文件 SolarWinds.Orion.Core.BusinessLayer.dll 的源码进行篡改添加了后门代码，该文件具有合法数字签名会伴随软件更新下发。后门代码伪装成 Orion OIP 协议的流量进行通信，将其恶意行为融合到 SolarWinds 合法行为中。</li>
+</ul>
+<h5 id="③-开源隐私信息泄露风险"><a class="header" href="#③-开源隐私信息泄露风险">③ 开源隐私信息泄露风险</a></h5>
+<p>这类风险是指个人、组织或企业对外开源项目、贡献代码时无意或有意将未经隐私信息清洗的代码，公开到托管平台上去，导致涉及个人或企业隐私的信息被迫公开。此风险涉及信息类型众多，严重威胁个人财产和隐私安全。</p>
+<p><strong>案例三：某连锁酒店信息泄露波及上亿条信息</strong></p>
+<ul>
+<li>事件时间线：2018 年，某连锁酒店用户数据在暗网公开售卖，数据涵盖大量敏感涉密信息；</li>
+<li>事件影响：涉及酒店 10 余家。据统计，此次泄露的数据数量总计达 5 亿条，其中，酒店官网注册资料信息共 53 GB，约 1.23 亿条记录；入住登记身份信息共 22.3 GB，约 1.3 亿条；酒店开房记录共 66.2 GB，约 2.4 亿条；</li>
+<li>利用手段：据分析此次事件源于内部人员在 Github 上传一个开源项目，该项目源码中包含酒店的服务器及数据库 IP 地址，路径、用户名和密码及网站密钥等机密信息，这些隐私信息被黑客利用导致大量数据泄露。</li>
+</ul>
+<h2 id="三业界开源安全实践洞察"><a class="header" href="#三业界开源安全实践洞察">三、业界开源安全实践洞察</a></h2>
+<h3 id="1开源社区安全"><a class="header" href="#1开源社区安全">1、开源社区安全</a></h3>
+<p><strong>主流社区安全能力建设从突破单点安全技术，逐步发展到打造安全基础设施、供应链安全、整体安全架构的系统化防护体系</strong></p>
+<p>1）业界主流社区从单点安全特性逐步向整体安全架构、供应链安全和安全基础设施等系统化建设方向发展。</p>
+<p>2）<strong>案例</strong>：Google 在发布 AOSP 开源项目的时候，更多的使用的是传统的 Linux 安全能力。随着对安全的认知及安全观加强之后，开始创造一些原创的安全能力。</p>
+<ul>
+<li>Linux：项目诞生（1991）--- 支持 SELinux（2003）--- Syzkaller Fuzz 关键（2016）---- KSPP 安全项目（2017）--- 任命供应链（2020）--- Sigstore 签名服务（2021）</li>
+<li>ASOP：项目诞生（2008) --- 漏洞致谢（2009）--- 支持SEAndroid（2014）---- 原生支持 Fuzzing（2017)--- 奖励开源软件安全研究（2019）</li>
+</ul>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: left"><strong>分类</strong></th><th style="text-align: left"><strong>openEuler</strong> <strong>等社区可借鉴点</strong></th></tr></thead><tbody>
+<tr><td style="text-align: left">安全架构</td><td style="text-align: left">单点安全技术---- 整体安全架构</td></tr>
+<tr><td style="text-align: left">供应链安全</td><td style="text-align: left">自身安全----上下游供应链安全</td></tr>
+<tr><td style="text-align: left">安全基础设施(漏洞挖掘)</td><td style="text-align: left">单个漏洞奖励 ----漏洞挖掘等基础设施</td></tr>
+<tr><td style="text-align: left">安全基础设施(安全开发)</td><td style="text-align: left">单一构建工具支持 ----安全开发基础设施支持</td></tr>
+</tbody></table>
+</div>
+<p>3）围绕开源件健康度和依赖度评估、漏洞感知与修复等系统化建设，是供应链安全发展的重点。</p>
+<p>① 开源软件存在的安全薄弱点：</p>
+<ul>
+<li>缺少安全 Metadata（缺乏文档、LICENSE、反馈渠道、维护状况等）</li>
 <li>未做到默认安全（使用不安全的加密算法、协议、设计等）</li>
 <li>软件依赖链不明确（较难获知依赖链的安全状况）</li>
 </ul>
-</li>
-<li>开源软件漏洞风险
+<p>② 开源软件漏洞风险：</p>
 <ul>
 <li>漏洞库信息缺乏（具体版本漏洞信息不准确）</li>
 <li>代码质量参差，存在漏洞风险（潜在漏洞数量多）</li>
 </ul>
-</li>
-<li>Google安全实践
+<p>③ Google 安全实践：</p>
 <ul>
-<li>2020年布局 OpenSSF 社区 ，构建开源社区安全能力量化评估体系</li>
-<li>2021年发布OSI（Open Source Insights），建立开源软件依赖链信息库</li>
-<li>2021年发布OSV（Open Source Vulnerabilities），建立开源软件漏洞信息库，支持开源版本漏洞查询</li>
-<li>发布OSS-Fuzz平台及Patch奖励项目，提供Fuzz算力和修复资源，增强开源软件漏洞挖掘力量</li>
+<li>2020 年布局 OpenSSF 社区，构建开源社区安全能力量化评估体系</li>
+<li>2021 年发布 OSI（Open Source Insights），建立开源软件依赖链信息库</li>
+<li>2021 年发布 OSV（Open Source Vulnerabilities），建立开源软件漏洞信息库，支持开源版本漏洞查询</li>
+<li>发布 OSS-Fuzz 平台及 Patch 奖励项目，提供 Fuzz 算力和修复资源，增强开源软件漏洞挖掘力量</li>
 </ul>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="开源选型google布局openssf社区制定开源软件安全评估体系推动开源项目安全状况改善"><a class="header" href="#开源选型google布局openssf社区制定开源软件安全评估体系推动开源项目安全状况改善">开源选型：Google布局OpenSSF社区，制定开源软件安全评估体系，推动开源项目安全状况改善</a></h3>
+<h3 id="2开源选型一"><a class="header" href="#2开源选型一">2、开源选型一</a></h3>
+<p><strong>Google 布局 OpenSSF 社区，制定开源软件安全评估体系，推动开源项目安全状况改善</strong></p>
 <p>对社区安全有评分，对社区的活跃度也有评分，从开源软件的角度，评分越高，也就意味着即使有一些开源软件漏洞，也会很快被软件开发者发现并修复。通过这些度量，可以让开发者或者开源软件使用方能理解这个社区是不是舍得被信赖，是不是一个可信的开源软件提供商，或者在选型时可以有的放矢地解决一些选型问题。</p>
-<p>Security Scorecards项目：</p>
+<h4 id="1security-scorecards-项目"><a class="header" href="#1security-scorecards-项目">1）Security Scorecards 项目：</a></h4>
 <ul>
 <li>对开源项目的安全情况进行自动分析；</li>
 <li>推动改善关键项目的安全情况；</li>
 </ul>
-<div class="table-wrapper"><table><thead><tr><th>Name</th><th style="text-align: center">Description</th></tr></thead><tbody>
-<tr><td>Binary-Artifacts</td><td style="text-align: center">Is the project free of checked-in binaries?</td></tr>
-<tr><td>Branch-Protection</td><td style="text-align: center">Does the project use Branch Protection ?</td></tr>
-<tr><td>CI-Tests</td><td style="text-align: center">Does the project run tests in CI, e.g. GitHub Actions, Prow?</td></tr>
-<tr><td>CII-Best-Practices</td><td style="text-align: center">Does the project have a CII Best Practices Badge?</td></tr>
-<tr><td>Code-Review</td><td style="text-align: center">CII-Best-Practices</td></tr>
-<tr><td>Contributors</td><td style="text-align: center">Does the project have contributors from at least two different organizations?</td></tr>
-<tr><td>Dependency-Update-Tool</td><td style="text-align: center">Does the project use tools to help update its dependencies?</td></tr>
-<tr><td>Fuzzing</td><td style="text-align: center">Does the project use fuzzing tools, e.g. OSS-Fuzz?</td></tr>
-<tr><td>Maintained</td><td style="text-align: center">Is the project maintained?</td></tr>
-<tr><td>Pinned-Dependencies</td><td style="text-align: center">Does the project declare and pin dependencies?</td></tr>
-<tr><td>Packaging</td><td style="text-align: center">Does the project build and publish official packages from CI/CD, e.g. GitHub Publishing ?</td></tr>
-<tr><td>SAST</td><td style="text-align: center">Does the project use static code analysis tools, e.g. CodeQL, SonarCloud?</td></tr>
-<tr><td>Security-Policy</td><td style="text-align: center">Does the project contain a security policy?</td></tr>
-<tr><td>Signed-Releases</td><td style="text-align: center">Does the project cryptographically sign releases?</td></tr>
-<tr><td>Token-Permissions</td><td style="text-align: center">Does the project declare GitHub workflow tokens as read only?</td></tr>
-<tr><td>Vulnerabilities</td><td style="text-align: center">Does the project have unfixed vulnerabilities? Uses the OSV service.</td></tr>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: left"><strong>Name</strong></th><th style="text-align: left"><strong>Description</strong></th></tr></thead><tbody>
+<tr><td style="text-align: left">Binary-Artifacts</td><td style="text-align: left">Is the project free of checked-in binaries?</td></tr>
+<tr><td style="text-align: left">Branch-Protection</td><td style="text-align: left">Does the project use Branch Protection?</td></tr>
+<tr><td style="text-align: left">CI-Tests</td><td style="text-align: left">Does the project run tests in CI, e.g. GitHub Actions, Prow?</td></tr>
+<tr><td style="text-align: left">CII-Best-Practices</td><td style="text-align: left">Does the project have a CII Best Practices Badge?</td></tr>
+<tr><td style="text-align: left">Code-Review</td><td style="text-align: left">CII-Best-Practices</td></tr>
+<tr><td style="text-align: left">Contributors</td><td style="text-align: left">Does the project have contributors from at least two different organizations?</td></tr>
+<tr><td style="text-align: left">Dependency-Update-Tool</td><td style="text-align: left">Does the project use tools to help update its dependencies?</td></tr>
+<tr><td style="text-align: left">Fuzzing</td><td style="text-align: left">Does the project use fuzzing tools, e.g. OSS-Fuzz?</td></tr>
+<tr><td style="text-align: left">Maintained</td><td style="text-align: left">Is the project maintained?</td></tr>
+<tr><td style="text-align: left">Pinned-Dependencies</td><td style="text-align: left">Does the project declare and pin dependencies?</td></tr>
+<tr><td style="text-align: left">Packaging</td><td style="text-align: left">Does the project build and publish official packages from CI/CD, e.g. GitHub Publishing ?</td></tr>
+<tr><td style="text-align: left">SAST</td><td style="text-align: left">Does the project use static code analysis tools, e.g. CodeQL, SonarCloud?</td></tr>
+<tr><td style="text-align: left">Security-Policy</td><td style="text-align: left">Does the project contain a security policy?</td></tr>
+<tr><td style="text-align: left">Signed-Releases</td><td style="text-align: left">Does the project cryptographically sign releases?</td></tr>
+<tr><td style="text-align: left">Token-Permissions</td><td style="text-align: left">Does the project declare GitHub workflow tokens as read-only?</td></tr>
+<tr><td style="text-align: left">Vulnerabilities</td><td style="text-align: left">Does the project have unfixed vulnerabilities? Uses the OSV service.</td></tr>
 </tbody></table>
 </div>
-<p>Criticality Score项目：</p>
+<h4 id="2criticality-score-项目"><a class="header" href="#2criticality-score-项目">2）Criticality Score 项目：</a></h4>
 <ul>
 <li>制定社区打分标准；</li>
 <li>筛选开源世界的关键项目列表；</li>
 <li>推动关键项目的安全改进；</li>
 </ul>
-<div class="table-wrapper"><table><thead><tr><th>Parameter</th><th style="text-align: center">Weight</th><th>Max threshold</th><th>Description</th></tr></thead><tbody>
-<tr><td>created_since</td><td style="text-align: center">1</td><td>120</td><td>Time since the project was created (in months)</td></tr>
-<tr><td>updated_since</td><td style="text-align: center">-1</td><td>120</td><td>Time since the project was last updated (in months)</td></tr>
-<tr><td>contributor_count</td><td style="text-align: center">2</td><td>5000</td><td>Count of project contributors (with commits)</td></tr>
-<tr><td>org_count</td><td style="text-align: center">1</td><td>10</td><td>Count of distinct organizations that contributors belong to</td></tr>
-<tr><td>commit_frequency</td><td style="text-align: center">1</td><td>1000</td><td>Average number of commits per week in the last year</td></tr>
-<tr><td>recent_releases_count</td><td style="text-align: center">0.5</td><td>26</td><td>Number of releases in the last year</td></tr>
-<tr><td>closed_issues_count</td><td style="text-align: center">0.5</td><td>5000</td><td>Number of issues closed in the last 90 days</td></tr>
-<tr><td>updated_issues_count</td><td style="text-align: center">0.5</td><td>5000</td><td>Number of issues updated in the last 90 days</td></tr>
-<tr><td>comment_frequency</td><td style="text-align: center">1</td><td>15</td><td>Average number of comments per issue in the last 90 days</td></tr>
-<tr><td>dependents_count</td><td style="text-align: center">0.5</td><td>500000</td><td>Number of project mentions in the commit messages</td></tr>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: left"><strong>Parameter</strong></th><th style="text-align: left"><strong>Weight</strong></th><th style="text-align: left"><strong>Max threshold</strong></th><th style="text-align: left"><strong>Description</strong></th></tr></thead><tbody>
+<tr><td style="text-align: left">created_since</td><td style="text-align: left">1</td><td style="text-align: left">120</td><td style="text-align: left">Time since the project was created (in months)</td></tr>
+<tr><td style="text-align: left">updated_since</td><td style="text-align: left">-1</td><td style="text-align: left">120</td><td style="text-align: left">Time since the project was last updated (in months)</td></tr>
+<tr><td style="text-align: left">contributor_count</td><td style="text-align: left">2</td><td style="text-align: left">5,000</td><td style="text-align: left">Count of project contributors (with commits)</td></tr>
+<tr><td style="text-align: left">org_count</td><td style="text-align: left">1</td><td style="text-align: left">10</td><td style="text-align: left">Count of distinct organizations that contributors belong to</td></tr>
+<tr><td style="text-align: left">commit_frequency</td><td style="text-align: left">1</td><td style="text-align: left">1,000</td><td style="text-align: left">The average number of commits per week in the last year</td></tr>
+<tr><td style="text-align: left">recent_releases_count</td><td style="text-align: left">0.5</td><td style="text-align: left">26</td><td style="text-align: left">Number of releases in the last year</td></tr>
+<tr><td style="text-align: left">closed_issues_count</td><td style="text-align: left">0.5</td><td style="text-align: left">5,000</td><td style="text-align: left">Number of issues closed in the last 90 days</td></tr>
+<tr><td style="text-align: left">updated_issues_count</td><td style="text-align: left">0.5</td><td style="text-align: left">5,000</td><td style="text-align: left">Number of issues updated in the last 90 days</td></tr>
+<tr><td style="text-align: left">comment_frequency</td><td style="text-align: left">1</td><td style="text-align: left">15</td><td style="text-align: left">The average number of comments per issue in the last 90 days</td></tr>
+<tr><td style="text-align: left">dependents_count</td><td style="text-align: left">0.5</td><td style="text-align: left">500,000</td><td style="text-align: left">Number of project mentions in the commit messages</td></tr>
 </tbody></table>
 </div>
-<h3 id="开源选型osi项目提供统一的软件及依赖分析工具结合高质量的数据更好的洞察软件的健康度"><a class="header" href="#开源选型osi项目提供统一的软件及依赖分析工具结合高质量的数据更好的洞察软件的健康度">开源选型：OSI项目提供统一的软件及依赖分析工具，结合高质量的数据，更好的洞察软件的健康度</a></h3>
+<h3 id="3开源选型二"><a class="header" href="#3开源选型二">3、开源选型二</a></h3>
+<p><strong>OSI 项目提供统一的软件及依赖分析工具，结合高质量的数据，更好的洞察软件的健康度</strong></p>
+<p>1）2021 年 6 月，Google 发布 OSI（Open Source Insights）开源软件资产库，应对开源安全及合规挑战。其信息包括：安全建议、合规信息、软件依赖关系、安全及修复建议、OSSF Scorecard 等，软件组合分析能力需要积累的数据资产。</p>
+<p>2）目前涵盖的开源资产：1.73M 的 NPM Packages；678k 的 Go Modules；418k 的 Maven Artifacts；68k 的 Cargo Creats； NuGet、PyPI 的数据资产待发布。</p>
+<p>3）借鉴：持续优化开源软件组合分析工具，构建漏洞精准定位和开源软件依赖解析能力，可视化开源软件的健康度</p>
+<h3 id="4漏洞挖掘"><a class="header" href="#4漏洞挖掘">4、漏洞挖掘</a></h3>
+<p><strong>Google 构建并开放 OSS-Fuzz 平台、Github 收购集成 CodeQL 等静态开源漏扫工具，赋能开源软件仓漏洞发掘</strong></p>
+<p>1）Google 开放大规模 Fuzz 平台，助力开源仓持续 Fuzz，发掘和验证漏洞：</p>
 <ul>
-<li>2021年6月，Google发布OSI（ Open Source Insights）开源软件资产库，应对开源安全及合规挑战，其信息包括：安全建议、合规信息、软件依赖关系、安全及修复建议、OSSF ScoreCard等，软件组合分析能力需要积累的数据资产。</li>
-<li>目前涵盖的开源资产：1.73M的NPM Packages；678k的Go Modules；418k的Maven Artifacts；68k的Cargo Creats； NuGet、PyPI的数据资产待发布。</li>
-<li>借鉴：持续优化开源软件组合分析工具，构建漏洞精准定位和开源软件依赖解析能力，可视化开源软件的健康度</li>
-</ul>
-<h3 id="漏洞挖掘google构建并开放oss-fuzz平台github收购集成codeql等静态开源漏扫工具赋能开源软件仓漏洞发掘"><a class="header" href="#漏洞挖掘google构建并开放oss-fuzz平台github收购集成codeql等静态开源漏扫工具赋能开源软件仓漏洞发掘">漏洞挖掘：Google构建并开放OSS-Fuzz平台、Github收购集成CodeQL等静态开源漏扫工具，赋能开源软件仓漏洞发掘</a></h3>
-<ul>
-<li>Google开放大规模Fuzz平台，助力开源仓持续Fuzz，发掘和验证漏洞：
-<ul>
-<li>开放OSS-Fuzz平台，将内部构建的ClusterFuzz能力开放给开源社区</li>
-<li>到2021年已被500个开源项目使用</li>
+<li>开放 OSS-Fuzz平台，将内部构建的 ClusterFuzz 能力开放给开源社区</li>
+<li>到 2021 年已被 500 个开源项目使用</li>
 <li>为开源软件提供集群服务器，以及自动化跟踪闭环的能力</li>
 </ul>
-</li>
-<li>Github集成静态开源漏扫工具，赋能开源仓安全扫描、漏洞变种分析：
+<p><img src="https://i.imgur.com/mSA0z2K.png" alt="" /></p>
+<p>2）Github 集成静态开源漏扫工具，赋能开源仓安全扫描、漏洞变种分析：</p>
 <ul>
-<li>Github收购CodeQL工具，免费开放给开源代码仓使用，使用codebase查询语句进行变种分析，消除同一类型漏洞</li>
-<li>Github集成sonarcloud等静态安全工具，助力开源仓持续集成安全扫描</li>
+<li>Github 收购 CodeQL 工具，免费开放给开源代码仓使用，使用 codebase 查询语句进行变种分析，消除同一类型漏洞</li>
+<li>Github 集成 sonarcloud 等静态安全工具，助力开源仓持续集成安全扫描</li>
 </ul>
-</li>
-<li>借鉴：构建自己的开源软件集群Fuzz平台、优化静态安全扫描工具，提升挖掘开源软件漏洞的能力，减小开源漏洞攻击风险</li>
-</ul>
-<h3 id="开源漏洞管理google提供漏洞修复奖励加速开源软件漏洞修复构建并开放开源软件漏洞数据库osv帮助开源软件使用者确认其版本是否存在漏洞"><a class="header" href="#开源漏洞管理google提供漏洞修复奖励加速开源软件漏洞修复构建并开放开源软件漏洞数据库osv帮助开源软件使用者确认其版本是否存在漏洞">开源漏洞管理：Google提供漏洞修复奖励加速开源软件漏洞修复；构建并开放开源软件漏洞数据库OSV，帮助开源软件使用者确认其版本是否存在漏洞</a></h3>
-<ul>
-<li>Google提供漏洞修复奖励计划：
+<p><img src="https://i.imgur.com/wcF1dw5.png" alt="" /></p>
+<p>3）借鉴：构建自己的开源软件集群Fuzz平台、优化静态安全扫描工具，提升挖掘开源软件漏洞的能力，减小开源漏洞攻击风险。</p>
+<h3 id="5开源漏洞管理"><a class="header" href="#5开源漏洞管理">5、开源漏洞管理</a></h3>
+<p><strong>Google 提供漏洞修复奖励加速开源软件漏洞修复；构建并开放开源软件漏洞数据库 OSV，帮助开源软件使用者确认其版本是否存在漏洞</strong></p>
+<p>1）Google 提供漏洞修复奖励计划：</p>
 <ul>
 <li>鼓励开源软件维护者修复其维护的开源项目中的漏洞</li>
 <li>吸引第三方人员帮助修复开源软件漏洞</li>
 <li>通过Fuzz对修复补丁进行验证</li>
 </ul>
-</li>
-<li>Google构建并开放开源软件漏洞数据库：
+<p><img src="https://i.imgur.com/kIcDzZV.png" alt="" /></p>
+<p>2）Google 构建并开放开源软件漏洞数据库：</p>
 <ul>
-<li>提供API给开源软件使用者查询使用版本是否存在漏洞</li>
-<li>确认开源软件漏洞的引入和修复commit信息</li>
-<li>从多个源获取漏洞信息，包括Google自己的OSS-Fuzz</li>
-<li>目前，还没有将漏洞关联到CVE信息</li>
+<li>提供 API 给开源软件使用者查询使用版本是否存在漏洞</li>
+<li>确认开源软件漏洞的引入和修复 commit 信息</li>
+<li>从多个源获取漏洞信息，包括 Google 自己的 OSS-Fuzz</li>
+<li>目前，还没有将漏洞关联到 CVE 信息</li>
 </ul>
-</li>
-</ul>
-<h3 id="开源供应链危机应对面向全生命周期采用工具管理安全增强特性等多方式组合看护供应链安全"><a class="header" href="#开源供应链危机应对面向全生命周期采用工具管理安全增强特性等多方式组合看护供应链安全">开源供应链危机应对：面向全生命周期，采用工具+管理+安全增强特性等多方式组合看护供应链安全</a></h3>
-<p>整个研发流程之外，还有很多问题，比如，有一些恶意的开发者往社区投毒，近几年供应链安全投毒的安全事件逐渐增多，部分事件如SolarWinds影响巨大。</p>
+<p><img src="https://i.imgur.com/772d9vJ.png" alt="" /></p>
+<h3 id="6开源供应链危机应对"><a class="header" href="#6开源供应链危机应对">6、开源供应链危机应对</a></h3>
+<p><strong>面向全生命周期，采用工具+管理+安全增强特性等多方式组合看护供应链安全</strong></p>
+<p>整个研发流程之外，还有很多问题，比如，有一些恶意的开发者往社区投毒，近几年供应链安全投毒的安全事件逐渐增多，部分事件如 SolarWinds 影响巨大。</p>
+<p>1）<strong>案例 1</strong>：明尼苏达大学 Linux 内核投毒。</p>
+<p>美国大学教授 “故意” 向 Linux 提交含 Bug 代码，内核管理员 “封杀” 明尼苏达大学。 他通过 Linux Curl 做安全实验，通过机器生成一些不安全的代码和函数，然后不停地提交给社区，这些不安全地代码和函数如果不通过某些自动化工具，很难被识别。如果是面对一些不负责任或者安全意识不高或者相应专业能力不强的审核人员审核，很容易通过。当时很多新闻报道，最终虽然没有产生严重的后果，因为这个代码马上被发现退回。 启示：如果不使用自动化工具或者使用更好的安全方法，面对所谓的投毒的恶意代码提交者，很难防范这个风险。</p>
+<p>2）<strong>案例 2</strong>：SolarWinds Orion 攻击事件</p>
+<p>攻击者篡改 SolarWinds 更新包代码将恶意代码插入 DLL 组件（SolarWinds.Orion.Core.BusinessLayer.dll)，该恶意动态链接库是攻击者主要篡改代码部分，具备执行各类攻击插件以及进行 HTTP后门通信等功能。</p>
+<p>因直接攻击代码仓库，且代码写得高度整洁，被正常构建具备合法的数字签名证书。 带有后门的更新包在官网上架： 更新包名称为：CORE-2019.4.5220.20574-SolarWinds-Core-v2019.4.5220-Hotfix5.msp。 该更新包具有 SolarWinds 合法的数字签名证书客户基于信任精神从官网下载和安装该恶意更新包。</p>
+<p>HTTP 后门代码通过域名生成算法 (DGA)，构造和解析 avsvmcloud.com 的子域，观察到的部分恶意域名。</p>
 <ul>
-<li>
-<p>案例1：明尼苏达大学Linux内核投毒
-美国大学教授“故意”向Linux提交含Bug代码，内核管理员“封杀”明尼苏达大学。
-他通过Linux Curl做安全实验，通过机器生成一些不安全的代码和函数，然后不停地提交给社区，这些不安全地代码和函数如果不通过某些自动化工具，很难被识别。如果是面对一些不负责任或者安全意识不高或者相应专业能力不强的审核人员审核，很容易通过。当时很多新闻报道，最终虽然没有产生严重的后果，因为这个代码马上被发现退回。
-启示：如果不使用自动化工具或者使用更好的安全方法，面对所谓的投毒的恶意代码提交者，很难防范这个风险。</p>
-</li>
-<li>
-<p>案例2：SolarWinds Orion 攻击事件</p>
+<li>一旦通过对这些 DGA 域名（CNAME）进行解析，并成功检索到对应的域名，其会使用这些对应的域名进行 C2 通信;</li>
+<li>进行 C2 通信过程中，攻击者会根据攻击目标，从而发放不同的控制命令，从而执行对应的恶意代码功能。该后门代码会接收制定指令，指令包括收集系统信息、运行指定任务、写删读文件等等，通过写文件可以执行其他功能模块程序。</li>
+</ul>
+<p>3）案例 3：SolarWinds Orion 攻击事件 </p>
 <ul>
-<li>攻击者篡改SolarWinds更新包代码将恶意代码插入DLL组件（SolarWinds.Orion.Core.BusinessLayer.dll)，该恶意动态链接库是攻击者主要篡改代码部分，具备执行各类攻击插件以及进行HTTP后门通信等功能。</li>
-<li>因直接攻击代码仓库，且代码写得高度整洁，被正常构建具备合法的数字签名证书。
-带有后门的更新包在官网上架：
-更新包名称为：CORE-2019.4.5220.20574-SolarWinds-Core-v2019.4.5220-Hotfix5.msp。
-该更新包具有SolarWinds合法的数字签名证书客户基于信任精神从官网下载和安装该恶意更新包。</li>
-<li>HTTP后门代码通过域名生成算法(DGA)，构造和解析avsvmcloud.com的子域，观察到的部分恶意域名。</li>
-<li>一旦通过对这些DGA域名（CNAME）进行解析，并成功检索到对应的域名，其会使用这些对应的域名进行C2通信;</li>
-<li>进行C2通信过程中，攻击者会根据攻击目标，从而发放不同的控制命令，从而执行对应的恶意代码功能。该后门代码会接收制定指令，指令包括收集系统信息、运行指定任务、写删读文件等等，通过写文件可以执行其他功能模块程序。</li>
+<li>XCode 官网下载慢，使攻击者有可乘之机，提供无 Hash 校验码 (Xcode 6.4 版本) 恶意下载源。</li>
+<li>MacOS 上存在允许任何来源安装的选项。低版本 Gatekeeper 恶意软件检测机制可被绕过。</li>
 </ul>
-</li>
-<li>
-<p>案例3：SolarWinds Orion 攻击事件</p>
+<h3 id="7开源软件安全管理热点问题"><a class="header" href="#7开源软件安全管理热点问题">7、开源软件安全管理热点问题</a></h3>
+<p><strong>总结</strong>：当前开源软件热门的安全管理事件，都是因为安全流程的疏忽，或者是没有使用相应的安全自动化工具，或者过多的让低技能甚至是不负责的代码审核者去审核这些代码而导致的各种安全问题，这些安全问题最终会因为开源软件的依赖和组件漏洞的关联导致广泛传播，造成企业和个人的一些资产和信息的损失。</p>
+<p>1）开源软件漏洞由 POC 披露到 NVD 首次公开时间长达 11 年</p>
 <ul>
-<li>XCode官网下载慢，使攻击者有可乘之机，提供无Hash校验码(Xcode 6.4版本)恶意下载源。</li>
-<li>MacOS上存在允许任何来源安装的选项。低版本Gatekeeper恶意软件检测机制可被绕过。</li>
+<li>CVE-2009-4067 Linux 内核 USB缓冲区溢出漏洞
+2）最主要的缺陷类型为：跨站脚本、内嵌的恶意代码、资源耗尽、信息暴露等</li>
 </ul>
-</li>
-</ul>
-<h3 id="开源软件安全管理热点问题"><a class="header" href="#开源软件安全管理热点问题">开源软件安全管理热点问题</a></h3>
-<p>总结：当前开源软件热门的安全管理事件，都是因为安全流程的疏忽，或者是没有使用相应的安全自动化工具，或者过多的让低技能甚至是不负责的代码审核者去审核这些代码而导致的各种安全问题，这些安全问题最终会因为开源软件的依赖和组件漏洞的关联导致进行一个广泛的传播，造成企业和个人的一些资产和信息的损失。</p>
+<p>3）软件代码/制品仓中安全风险态势严峻：</p>
 <ul>
-<li>开源软件漏洞由POC披露到NVD首次公开时间长达11年
+<li>Maven (Java) 数据量达 650 万+，Nuget (.NET) 累计下载 930亿+，Rubygems（Ruby）累计下载 712 亿+，PyPI (Python) 用户 49万+，其余还有 Composor (PHP)、npm (JavaScript) 等。</li>
+<li>2020 年新增漏洞数为 3,426，环比去年增长 40%；近 3 年增长速度呈上升趋势，2020 年新增漏洞数是 2015 年的 4.48 倍。</li>
+<li>对 Maven、NPM、PyPI 等仓库的删除、投毒攻击持续发生
+4）组件漏洞存在广泛的依赖层级传播</li>
+</ul>
+<h2 id="四企业修复开源软件漏洞实践"><a class="header" href="#四企业修复开源软件漏洞实践">四、企业修复开源软件漏洞实践</a></h2>
+<h3 id="1开源生态中与开源安全相关的组织"><a class="header" href="#1开源生态中与开源安全相关的组织">1、开源生态中与开源安全相关的组织</a></h3>
+<p><img src="https://i.imgur.com/5pE8UQq.png" alt="" /></p>
+<p>实际上整个开源生态是以用户为中心，整个开源社区的安全需求的反馈大部分来自于用户。</p>
+<p>其次就是开源基金会，比如 openSSF，很多大型的社区，都会成立一个安全委员会，来构建一些安全的基础设施、标准及流程，包括上报漏洞、披露漏洞、解决漏洞等的标准化流程。</p>
+<p>社区的开发者为开源软件安全提供主要贡献，因此开发者们需要社区提供一些安全设计及编码规范。</p>
+<p>另外就是软件的提供商或发行商，比如 SUV，将开源的成果、项目进行包装，然后提供给用户。</p>
+<p>最后就是政府机构，为开源安全提供一些政策和协调，比如社区的贡献者发现一个漏洞之后，首先应该通过什么方式上报？先上报给社区的安全委员会还是先上报给政府？原则上是需要上报给社区里类似安全委员会这样的组织，然后安全委员会根据原有的流程上报给对应的用户。</p>
+<h3 id="2企业如何修复开源软件漏洞"><a class="header" href="#2企业如何修复开源软件漏洞">2、企业如何修复开源软件漏洞？</a></h3>
 <ul>
-<li>CVE-2009-4067 Linux 内核 USB缓冲区溢出漏洞</li>
+<li>开源软件漏洞通过问题单跟踪处理，根据漏洞的风险等级，产品会按照漏洞相应SLA要求进行修复。在研发阶段，高风险开源软件漏洞必须在产品版本发布前修复；中低风险漏洞经过实际风险评估后，可以遗留到下个补丁或版本修复，但是修复时间必须符合企业漏洞相应 SLA 要求；</li>
+<li>产品 GA 以后，所有开源软件漏洞都必须按照企业漏洞相应 SLA 要求修复。</li>
 </ul>
-</li>
-<li>最主要的缺陷类型为：跨站脚本、内嵌的恶意代码、资源耗尽、信息暴露等</li>
-<li>软件代码/制品仓中安全风险态势严峻：
+<p><img src="https://i.imgur.com/zwvcgtu.png" alt="" /></p>
+<h3 id="3建立从开源漏洞发现到用户升级的漏洞-e2e-处理流程机制"><a class="header" href="#3建立从开源漏洞发现到用户升级的漏洞-e2e-处理流程机制">3、建立从开源漏洞发现到用户升级的漏洞 E2E 处理流程机制</a></h3>
+<p><img src="https://i.imgur.com/xqZK4lR.png" alt="" /></p>
+<p>主要分为三个部分：上游的供应商、下游的用户以及中间的企业。供应商发现漏洞之后，会通知到企业；其次公司这边也会通过产品测试发现一些漏洞；再就是外部渠道上报的一些漏洞，比如通过漏洞奖励计划收上来的漏洞；再有就是用户在使用过程中受到攻击，运维人员也会将这些漏洞反馈给企业。从这些渠道里收集到的漏洞，会在企业内部进行评审和备案，收集漏洞之后，建立相应数据库来维护这些漏洞，比如哪个软件的哪个开源软件的哪个版本有什么样的漏洞，我们称之为为“漏洞 item化”。在维护产品的开源软件时，需要通知涉及的研发团队，由他们来制定漏洞处理方案，再同步到用户做漏洞的闭环处理。</p>
+<h3 id="4openeuler-社区漏洞处理能力建设实践"><a class="header" href="#4openeuler-社区漏洞处理能力建设实践">4、openEuler 社区漏洞处理能力建设实践</a></h3>
+<p><img src="https://i.imgur.com/jYscl5f.png" alt="" /></p>
+<h4 id="1openeuler-社区漏洞处理流程"><a class="header" href="#1openeuler-社区漏洞处理流程">1）openEuler 社区漏洞处理流程</a></h4>
+<p>参照业界漏洞管理最佳实践：CVSS、CPE、CVRF 、ISO/IEC 29147和 ISO/IEC 30111 制定 openEuler 社区漏洞处理流程</p>
+<p><img src="https://i.imgur.com/5xDqr7l.png" alt="" /></p>
+<p>社区里的安全委员会都是由相关安全专家来进行组织运作，首先可以通过邮箱给安全团队上报漏洞，安全团队接收漏洞之后，对漏洞进行评估打分，分成高中低的级别，同时对漏洞进行补丁开发、补丁验证，在 NVD 获得 CVE 之后，可以选择受限披露。如果漏洞在下游厂商或用户，在还未打上补丁之前就对外进行公布，这种行为存在很大风险，黑客很容易通过漏洞进行攻击，因此做受限披露，通知下游的厂商用户做补丁的修复或规避，最后会发布正式的安全通告，对应到 CVE。</p>
+<h4 id="2openeuler-社区漏洞处理机制"><a class="header" href="#2openeuler-社区漏洞处理机制">2）openEuler 社区漏洞处理机制</a></h4>
+<p><img src="https://i.imgur.com/AV2WG4n.png" alt="" /></p>
+<h5 id="①-漏洞感知"><a class="header" href="#①-漏洞感知">① 漏洞感知</a></h5>
 <ul>
-<li>Maven (Java) 数据量达650万+，Nuget (.NET) 累计下载930亿+，Rubygems （Ruby）累计下载 712亿+，PyPI (Python) 用户49万+，其余还有 Composor (PHP)、npm (JavaScript) 等。</li>
-<li>2020年新增漏洞数为3426，环比去年增长40%；近3年增长速度呈上升趋势，2020年新增漏洞数是2015年的4.48倍。</li>
-<li>对 Maven、NPM、PyPI 等仓库的删除、投毒攻击持续发生</li>
+<li>Vtopia 漏洞感知系统</li>
+<li>加密邮件上报 (openeuler-security@openeuler.org)</li>
+<li>漏洞奖励计划</li>
 </ul>
-</li>
-<li>组件漏洞存在广泛的依赖层级传播</li>
+<h5 id="②-漏洞分析评估和验证"><a class="header" href="#②-漏洞分析评估和验证">② 漏洞分析、评估和验证</a></h5>
+<ul>
+<li>漏洞原理分析</li>
+<li>漏洞严重等级评估（Critical /High /Medium /Low）</li>
+<li>漏洞验证和重现</li>
 </ul>
+<h5 id="③-漏洞修复"><a class="header" href="#③-漏洞修复">③ 漏洞修复</a></h5>
+<ul>
+<li>漏洞修复</li>
+<li>私有披露（distirbutors-announce@openeuler.org）</li>
+<li>漏洞修复验证测试</li>
+</ul>
+<h5 id="④-漏洞披露"><a class="header" href="#④-漏洞披露">④ 漏洞披露</a></h5>
+<ul>
+<li>网页版 SA</li>
+<li>网页版 CVE</li>
+<li>CVRF 格式 SA</li>
+<li>绿盟漏洞漏扫系统</li>
+<li>订阅邮件推送 (sa-announce@openeuler.org）</li>
+</ul>
+<h4 id="3openeuler-社区漏洞处理流水线"><a class="header" href="#3openeuler-社区漏洞处理流水线">3）openEuler 社区漏洞处理流水线</a></h4>
+<p><img src="https://i.imgur.com/isqWMRM.png" alt="" /></p>
+<p>主要流程：</p>
+<ul>
+<li>软件包及版本信息同步到 vtopia</li>
+<li>漏洞推送到 openEuler 社区建单跟踪</li>
+<li>漏洞解决进展监控</li>
+<li>漏洞修复与发布</li>
+</ul>
+<h4 id="4openeuler-社区漏洞管理-cve-manager"><a class="header" href="#4openeuler-社区漏洞管理-cve-manager">4）openEuler 社区漏洞管理 CVE-Manager</a></h4>
+<h5 id="①-漏洞提单"><a class="header" href="#①-漏洞提单">① 漏洞提单</a></h5>
+<p><img src="https://i.imgur.com/LMHQDSL.png" alt="" /></p>
+<h5 id="②-漏洞分析提醒"><a class="header" href="#②-漏洞分析提醒">② 漏洞分析提醒</a></h5>
+<p><img src="https://i.imgur.com/QXCOMn5.png" alt="" /></p>
+<h5 id="③-漏洞分析结果检查"><a class="header" href="#③-漏洞分析结果检查">③ 漏洞分析结果检查</a></h5>
+<p><img src="https://i.imgur.com/T8nBScX.png" alt="" /></p>
+<h5 id="④-pr-关联检查"><a class="header" href="#④-pr-关联检查">④ PR 关联检查</a></h5>
+<p><img src="https://i.imgur.com/oN3h3ld.png" alt="" /></p>
+<p>a、人工提单，信息补全</p>
+<ul>
+<li>人工创建 CVE，只需要填 CVE 编号和软件名称，可通过 /get-cve 补全 CVE 信息。</li>
+</ul>
+<p><img src="https://i.imgur.com/VRJ22Am.png" alt="" /></p>
+<p>b、补丁辅助查找</p>
+<p><img src="https://i.imgur.com/uvNX1xK.png" alt="" /></p>
+<h4 id="5openeuler-社区漏洞发布平台"><a class="header" href="#5openeuler-社区漏洞发布平台">5）openEuler 社区漏洞发布平台</a></h4>
+<h5 id="①-安全公告补丁维度"><a class="header" href="#①-安全公告补丁维度">① 安全公告：补丁维度</a></h5>
+<p><img src="https://i.imgur.com/iX25ZyR.png" alt="" /></p>
+<h5 id="②-cve-公告漏洞维度"><a class="header" href="#②-cve-公告漏洞维度">② CVE 公告：漏洞维度</a></h5>
+<p><img src="https://i.imgur.com/HZqhqd9.png" alt="" /></p>
+<h5 id="③-cvrf-格式-sa机器可读的-sa"><a class="header" href="#③-cvrf-格式-sa机器可读的-sa">③ CVRF 格式 SA：机器可读的 SA</a></h5>
+<p><img src="https://i.imgur.com/a3pwCAk.png" alt="" /></p>
+<h4 id="6openeuler-社区漏洞看板"><a class="header" href="#6openeuler-社区漏洞看板">6）openEuler 社区漏洞看板</a></h4>
+<h5 id="①-漏洞感知详情"><a class="header" href="#①-漏洞感知详情">① 漏洞感知详情</a></h5>
+<p><img src="https://i.imgur.com/b1Nh5Uj.png" alt="" /></p>
+<h5 id="②-漏洞修复-slo-达成率-top20-软件"><a class="header" href="#②-漏洞修复-slo-达成率-top20-软件">② 漏洞修复 SLO 达成率 Top20 软件</a></h5>
+<p><img src="https://i.imgur.com/EPbpoT9.png" alt="" /></p>
+<h5 id="③-漏洞修复详情"><a class="header" href="#③-漏洞修复详情">③ 漏洞修复详情</a></h5>
+<p><img src="https://i.imgur.com/miY6IKa.png" alt="" /></p>
+<h4 id="7openeuler-社区漏洞奖励计划方案"><a class="header" href="#7openeuler-社区漏洞奖励计划方案">7）openEuler 社区漏洞奖励计划方案</a></h4>
+<p>openEuler 通过漏洞盒子平台对 iSulad/A-Tune 开展奖励计划</p>
+<ul>
+<li>厂商提供奖金：华为</li>
+<li>第三方众测平台运营奖励计划：漏洞盒子</li>
+<li>开源社区接收和处理漏洞：openEuler 社区</li>
+<li>由华为提供资金，第三方众测平台公开发布开源社区奖励计划。</li>
+<li>安全研究者邮件提交漏洞给社区。</li>
+<li>社区通过邮件与安全研究者沟通最终确认漏洞等级，漏洞奖金。</li>
+<li>社区将将该漏洞标题，漏洞等级，漏洞奖金，提交者邮箱等信息邮件回复漏洞盒子。平台方将核对确认后，分配专属客户联系安全研究者，沟通奖金事宜，及协议签订。如无平台账号，引导其在漏洞盒子注册账号，用以发放奖励。</li>
+<li>社区发布补丁公告，通知漏洞盒子与安全研究者后，漏洞盒子发放奖励到该安全研究者平台账号。安全研究者随时可以在平台发起提现操作。提现申请需要在漏洞盒子平台绑定银行卡等信息。</li>
+<li>漏洞盒子财务部每月 10 号打款，并完成相应个税缴纳工作。</li>
+</ul>
+<p><img src="https://i.imgur.com/TUBB8tI.png" alt="" /></p>
+<p>由三方平台负责奖励计划的运营和支付，社区负责漏洞处理和奖金评定，社区不保存白帽子信息，无隐私泄露风险。</p>
+<h2 id="五全球开源安全防范措施愈加严格我国尚处于探索阶段"><a class="header" href="#五全球开源安全防范措施愈加严格我国尚处于探索阶段">五、全球开源安全防范措施愈加严格，我国尚处于探索阶段</a></h2>
+<h3 id="1全国开源安全发展较早多层面合力应对开源安全威胁"><a class="header" href="#1全国开源安全发展较早多层面合力应对开源安全威胁">1、全国开源安全发展较早，多层面合力应对开源安全威胁</a></h3>
+<h4 id="1开源安全防范政策层层加码"><a class="header" href="#1开源安全防范政策层层加码">1）开源安全防范政策层层加码</a></h4>
+<p>多国实施开源漏洞悬赏计划提高开源项目安全性：</p>
+<ul>
+<li>欧盟 “FOSSA项目”（2015 年）：定期提供悬赏奖金，支持常用开源软件漏洞挖掘奖励；</li>
+<li>美国“开源软件代码测试计划”（2006 年）：针对大量开源软件进行安全隐患的筛查和加固，截至 2017 年 2 月，累计检测各种开源软件 7,000 多个，发现大量安全缺陷；</li>
+<li>英国 “开放代码的安全注意事项指南”：英国政府认为开源可以在协作开发中创建更好的代码，并提高与用户的接触，但同时以要遵循指南中注意事项保障开源代码安全。</li>
+</ul>
+<h4 id="2开源安全组织探索开源社区安全保障"><a class="header" href="#2开源安全组织探索开源社区安全保障">2）开源安全组织探索开源社区安全保障</a></h4>
+<p>2020 年 8 月 Linux 基金会成立开源安全基金会（OpenSSF）：</p>
+<ul>
+<li>设立一个理事会 (Governing Board)，一个技术咨询委员会 Technical Advisory Council)；</li>
+<li>截至 2022 年 4 月，该基金会共拥有 74 位会员，包括 25 位付费会员 41 位普通会员和 8 位协会会员。目前基金会共托管 2 个主要开源项目，并形成 5 个工作组推进开源安全治理；</li>
+<li>开源安全基金会 (OpenSSF) 最佳实践徽章提供为开源软件提供安全证明。徽章的使用者可以快速评估哪些开源项目遵循最佳实践，因此更有可能生产出更高质量的安全软件。</li>
+</ul>
+<h4 id="3开源社区构建安全开发衡量标准"><a class="header" href="#3开源社区构建安全开发衡量标准">3）开源社区构建安全开发衡量标准</a></h4>
+<ul>
+<li>Alpha-Omega 项目：通过直接参与软件安全专家和自动化安全测试来改善开源软件 (OSS) 的安全状况；</li>
+<li>Siastore；</li>
+<li>SLSA。</li>
+</ul>
+<h4 id="4头部科技公司开源安全防范体系建立较早"><a class="header" href="#4头部科技公司开源安全防范体系建立较早">4）头部科技公司开源安全防范体系建立较早</a></h4>
+<p>对内成立开源管理办公室 (OSPO) 管理企业：</p>
+<ul>
+<li>在 2,700 名研究参与者中，超过一半 (52%) 拥有正式或非正式开源项目办公室，或者他们的公司计划创建一个计划；</li>
+<li>对外积极推动开源安全生态发展：微软、谷歌.….…</li>
+<li>头部科技公司致力于开源重要领域安全类开源项目：微软、谷歌、IBM......</li>
+</ul>
+<h3 id="2我国政府企业和个人三管齐下应对开源安全风险"><a class="header" href="#2我国政府企业和个人三管齐下应对开源安全风险">2、我国政府、企业和个人三管齐下应对开源安全风险</a></h3>
+<h4 id="1多政策提及开源安全防范要求"><a class="header" href="#1多政策提及开源安全防范要求">1）多政策提及开源安全防范要求</a></h4>
+<p>《关于规范金融业开源技术应用与发展的意见》：</p>
+<ul>
+<li>2021年10月20日，人民银行办公厅、中央网信办秘书局、工业和信息化部办公厅、银保监会办公厅、证监会办公厅联合发布；</li>
+<li>意见提及坚持安全可控。金融机构应当把保障信息系统安全作为使用开源技术的底线，认真开展事前技术评估和安全评估，堵塞安全漏洞，切实保证技术可持续和供应链安全，提升信息系统业务连续性水平；</li>
+<li>意见支持金融机构制定应急处署预案，应对开源技术潜在漏洞后门及闭源停服等突发情况。</li>
+</ul>
+<p>《十四五”软件和信息技术服务业发展规划》：</p>
+<ul>
+<li>2021年11月30日，工业和信息化部印发；</li>
+<li>规划提出在发展开源生态的同时需要开展开源治理工作，对知识产权进行托管，建立开源软件知识产权基金等，开源安全治理部分尚未单独说明；</li>
+<li>在开源安全层面，建设国家和行业级别开源社区的安全审查体系，保证各行业广泛使用的重要开源产品及技术服务的安全性；以国家规育制度和行业自律公约等形式规范开源软件的治理工作，推动公正的中立第三方代码托管平台，保证开源服务的安全和可信的运行态的服务试用。</li>
+</ul>
+<h4 id="2开源安全组织处于探索阶段"><a class="header" href="#2开源安全组织处于探索阶段">2）开源安全组织处于探索阶段</a></h4>
+<p>开放原子开源基金会关注开源项目安全漏洞治理：</p>
+<ul>
+<li>开放原子开源基金会openX研究工作组下设的目标是构建一个公益性的开源研究机构汇聚领先开源人才和智力；同时以一个开放、透明的社区的形式，以跨学科的视角，将 “开源开发”、“开源治理”、“开源运营” 等研究融为一体，持续输出 “方法”、“技术”、“工具”、“规范” 等前沿知识性成果；</li>
+<li>下设开源项目安全漏洞治理子工作组通过专题小组的研究和产出，帮助更多的企业和组织提升安全漏洞治理的能力，提升企业和组织的生产力和竞争力，为企业和及其开源项目保驾护航。</li>
+</ul>
+<p>中国信息通信研究院创建 “可信开源” 品牌，探寻开源安全标准化工作：</p>
+<ul>
+<li>标准制定方面形成包括企业级开源治理、开源供应链、开源工具、开源项目和社区在内的可信开源治理体系，为企业规范开源治理，降低开源风险提供参考；</li>
+<li>白皮书撰写方面，继续深入产业研究，正在编写包括《开源生态白皮书》在内的多本开源领域白皮书， 树立行业标杆；</li>
+<li>社区建设方面，继续扩大金融行业开源技术应用社区规模，吸纳50余家金融成员探讨金融行业开源痛点问题；</li>
+<li>公共服务方面，建成综合性开源治理平台，为企业和个人提供开源风险检测和开源生态监测公共服务。</li>
+</ul>
+<h4 id="3开源社区安全开发意识有待加强"><a class="header" href="#3开源社区安全开发意识有待加强">3）开源社区安全开发意识有待加强</a></h4>
+<p>国内部分活跃度高的开源社区陆续设立开源安全漏洞治理组保障社区安全治理：</p>
+<ul>
+<li>MindSpore 社区建立单独漏洞管理团队，协调漏洞从接收到披露的整个过程，包括：漏洞收集、漏洞跟踪处置、负责任的披露；</li>
+<li>Open Harmony 社区建立安全问题响应组，发布安全问题处理和发布流程，通过安全漏洞例行；扫描、内部上报和外部上报等方式及时发现开源安全问题，安全问题分发员完成对新问题的确认，修复负责人将组织修复团队，并会根据问题的严重性，开发需要的时间和发布经理反馈的版本计划，综合自己最佳的判断来制定问题的修复计划；</li>
+<li>FATE 设立安全响应委员会/安全专委会。</li>
+</ul>
+<h4 id="4金融与出海企业开源安全防范体系落地较早"><a class="header" href="#4金融与出海企业开源安全防范体系落地较早">4）金融与出海企业开源安全防范体系落地较早</a></h4>
+<ul>
+<li>涉及海外业务企业，关注开源安全隐患颗粒度细分至代码片段级别；</li>
+<li>涉及海外业务企业，追求快速漏洞相应速度。</li>
+</ul>
+<h2 id="六开源安全防范需兼顾上游开源社区与下游开源用户"><a class="header" href="#六开源安全防范需兼顾上游开源社区与下游开源用户">六、开源安全防范需兼顾上游开源社区与下游开源用户</a></h2>
+<h3 id="1开源社区需建立安全开发规范"><a class="header" href="#1开源社区需建立安全开发规范">1、开源社区需建立安全开发规范</a></h3>
+<p>1）对社区运营的开源软件提供安全开发规范指引；</p>
+<p>2）进行开发过程全流程安全扫描与识别；</p>
+<p>3）开源软件运营安全需持续关注。</p>
+<h3 id="2用户企业需建立开源安全问题修复措施"><a class="header" href="#2用户企业需建立开源安全问题修复措施">2、用户企业需建立开源安全问题修复措施</a></h3>
+<h4 id="1安全漏洞和后门植入需按照轻重缓急应修尽修"><a class="header" href="#1安全漏洞和后门植入需按照轻重缓急应修尽修">1）安全漏洞和后门植入需按照轻重缓急应修尽修</a></h4>
+<p>a、漏洞评估与解读首先为用户企业提供漏洞全貌。
+b、收影响组件分析为用户企业梳理漏洞修复优先级：</p>
+<ul>
+<li>通常单个组件漏洞职责单一的，这类漏洞较易处理；</li>
+<li>单个组件是框架类的处理起来比较麻烦；</li>
+<li>单个组件升级后相应关联组件或底层中间件需同步升级，处理中比较麻烦甚至可能需要修改程序代码；</li>
+<li>单个组件有漏洞，但相关程序代码未涉及的情况较易处理；</li>
+<li>单个组件含有另外一个组件，但未使用另外一个组件功能的较易处理。
+c、修复方案制定应结合用户企业实际情况实施。</li>
+</ul>
+<h4 id="2隐私信息泄露防范需做好出口管理"><a class="header" href="#2隐私信息泄露防范需做好出口管理">2）隐私信息泄露防范需做好出口管理</a></h4>
+<ul>
+<li>开源运营方应对开源软件产品及服务建立隐私信息安全监控防护机制；</li>
+<li>在使用开源代码时，开发者应注意各类语言的开发习惯；</li>
+<li>对于贡献开源技术的企业贡献者，也应遵循保护核心代码、隐私信息保密。</li>
+</ul>
+<h2 id="七开源安全发展展望"><a class="header" href="#七开源安全发展展望">七、开源安全发展展望</a></h2>
+<h3 id="1国家层面"><a class="header" href="#1国家层面">1、国家层面</a></h3>
+<p>1）建议国家和行业监管部门继续完善和制定开源安全相关的政策，建立长效工作机制，搭建国家级/行业级开源安全风险分析和威胁情报收集平台。具备系统化、规模化的软件源代码缺陷和后门分析、漏洞分析、开源软件成分、风险分析及情报收集等能力，及时发现和处置开源软件安全风险；</p>
+<p>2）对已知开源成分及依赖链条漏洞威胁情报的实时监控跟踪机制，搜集多维度多渠道的开源威胁情报；</p>
+<p>3）针对企业、机构已有的开源成分清单和图谱，在第一时间内将有效的开源威胁情报同步给相关责任人。</p>
+<h3 id="2组织层面"><a class="header" href="#2组织层面">2、组织层面</a></h3>
+<p>1）建立开源软件安全标准化体系，尤其需要强化开源组件、安全开发和事件外置等方面的标准化工作；</p>
+<p>2）立足新形势、新趋势，重点围绕网络安全法、数据安全法、关键信息基础设施安全保护条例等法律法规要求的落地实施，统筹规划国家开源软件安全标准体系，用于指导开源软件安全标准的制定和相关标准的修订工作；</p>
+<p>3）建议强化开源软件安全标准的应用实践工作：</p>
+<ul>
+<li>选取典型的开源软件安全保护场景，开展标准适用性和实施效果评价；</li>
+<li>是完善开源软件安全标准研究、宣贯和应用推广机制，和企业、高校、科研院所建立“产学研用”的一体化联盟，共同攻关开源软件安全标准化难点。</li>
+</ul>
+<h3 id="3-个人和企业层面"><a class="header" href="#3-个人和企业层面">3、 个人和企业层面</a></h3>
+<p>1）合力共建开源创新生态环境，同时通过学习借鉴国外更完善的基金会运行模式、组织机制和法律制度，了解开源生态运作机制，定期开展开源安全风险意识培训，不断提高自身开源代码安全开发能力；</p>
+<p>2）积极配合国家监管部门、研究机构、标准组织等出台开源软件安全相关的政策、标准，共同打造安全可信的开源生态环境。</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="开源生命周期管理"><a class="header" href="#开源生命周期管理">开源生命周期管理</a></h1>
 <p>​		开源软件的生命周期管理，从本质上来说，和开源软件使用规范中，所陈述的开源软件供应链管理有一定的区别。开源软件供应链管理更多讲述的是开源软件本身的引入、使用以及维护，这是开源软件本身端到端的流程。</p>
 <p>​		但是开源软件的生命周期管理，跳出了开源软件本身的角度看问题。众所周知，开源软件使用是集成在产品代码当中，开源软件跟产品息息相关，产品的生命周期问题会导致开源软件的生命周期问题，所以这门课程阐述的是：如何从产品角度看开源软件的生命周期管理。</p>
